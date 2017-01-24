@@ -49,3 +49,16 @@ each validation campaign all in the same storage account
  1. Create batch pool on azure (once), create container on storage g4data
  1. Add Pool: `shipyard pool add --credentials credentials.json --config global.json --pool pool.json`
 
+## Note on working directory
+batch-shypiard changes the working directory to some generated path. So I added a cd to the correct
+directory into runme scripts.
+
+## Note on `/output` directory
+Outuput data are stored in the container into `/output` this directory must be a docker volume
+mounted from the host to then copy its content to the output storage account.
+See `global.json` and the `jobs.json` files.
+
+## Note on jobs json files with many tasks
+To avoid the maintanance of large `jobs.json` files, these are usually generated from smaller
+json files containing only the run command that is the the only things that changes.
+
