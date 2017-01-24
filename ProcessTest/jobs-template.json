@@ -8,6 +8,9 @@
                     "shared_data_volumes": [
                         "g4dbsvol"
                     ],
+                    "data_volumes" : [ 
+                        "output"
+                    ],
                     "output_data": {
                         "azure_storage": [
                             {

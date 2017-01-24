@@ -8,6 +8,9 @@
                     "shared_data_volumes": [
                         "g4dbsvol"
                     ],
+                    "data_volumes" : [
+                        "output"
+                    ],
                     "output_data": {
                         "azure_storage": [
                             {
@@ -19,7 +22,7 @@
                         ]
                     },
                     "remove_container_after_exit": true,
-                    "command": "/runme.xs.sh G4_H"
+                    "command": "/runme.sh FTFP_BERT run.mac && ls $AZ_BATCH_NODE_SHARED_DIR "
                 }
             ]
         }
