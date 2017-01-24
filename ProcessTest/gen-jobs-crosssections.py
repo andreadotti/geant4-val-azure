@@ -6,12 +6,16 @@ Created on Mon 23 2017
 """
 import sys
 if len(sys.argv)<2:
-    print 'usage:',sys.argv[0],'<list.json>'
+    print 'usage:',sys.argv[0],'<list.json> [<outputfile.json>]'
     print '     <list.json> is the simplified list of tasks json file'
+    print '     <outputfile.json> is the name of the generated file (default: gen-jobs.json)'
     exit(0)
 
 templatefile='jobs-template.json'
 jobsfile=sys.argv[1]
+outputfile='gen-jobs.json'
+if len(sys.argv)>2:
+    outputfile=sys.argv[2]
 
 import json
 import copy
@@ -34,7 +38,7 @@ for _cmd in _tasks_list[_id]:
     _job[u'tasks'].append(_t)
 
 _finalout={ u'job_specifications': [ _job ] }
-_of=file("gen-jobs.json","w")
+_of=file(outputfile,"w")
 json.dump(_finalout,_of,indent=1)
 _of.close()
 _f1.close()
