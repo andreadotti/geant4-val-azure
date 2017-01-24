@@ -11,7 +11,7 @@ host_db=/home/adotti/Work/share/G4data
 all_macros=`docker run -v"${host_db}:/usr/local/geant4/data:ro" --rm andreadotti/geant4-val:latest find validation -name run.mac`
 
 cat <<EOF > .singleinteractions-${pl}-list.json 
- {                                                                                                                                                                              "singleinteractions" : [
+ {                                                                                                                                                                              "singleinteractions-${pl}" : [
 EOF
 
 for macro in $all_macros;do

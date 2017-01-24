@@ -1,4 +1,4 @@
- {                                                                                                                                                                              "singleinteractions" : [
+ {                                                                                                                                                                              "singleinteractions-FTFP_BERT" : [
       "/runme.sh FTFP_BERT validation/nCapture/neutron/0.002MeV/G4_Pb/run.mac",
       "/runme.sh FTFP_BERT validation/nCapture/neutron/0.002MeV/G4_O/run.mac",
       "/runme.sh FTFP_BERT validation/nCapture/neutron/0.002MeV/G4_C/run.mac",
