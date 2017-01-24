@@ -1,0 +1,27 @@
+{
+    "job_specifications": [
+        {
+            "id": "id",
+            "tasks": [
+                {
+                    "image": "andreadotti/geant4-val:latest",
+                    "shared_data_volumes": [
+                        "g4dbsvol"
+                    ],
+                    "output_data": {
+                        "azure_storage": [
+                            {
+                                "storage_account_settings": "g4data",
+                                "container": "processtest-xs-10-3",
+                                "source": "$AZ_BATCH_NODE_SHARED_DIR",
+                                "include": [ "*.tgz" ]
+                            }
+                        ]
+                    },
+                    "remove_container_after_exit": true,
+                    "command": ""
+                }
+            ]
+        }
+    ]
+}
