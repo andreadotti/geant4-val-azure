@@ -5,7 +5,7 @@ The tasks are defined in a simplified syntax in one of the
 `*-list.json` files. Each task is an entry in the array
 with the command line to execute the task.
 
-Type: `python gen-jobs-crosssections.py crosssections-list.json jobs.json`
+Type: `python gen-jobs.py crosssections-list.json jobs.json`
 to generate a shipyard jobs json file for cross-sections validation into 
 `jobs.json` file.
 
