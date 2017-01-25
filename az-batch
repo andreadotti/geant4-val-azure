@@ -111,7 +111,12 @@ genfiles
 
 case "${cmd}" in
     status)
-        shipyard jobs listtasks --configdir ${conf_dir} 2>&1
+        ff=`mktemp`
+        shipyard jobs listtasks --configdir ${conf_dir} 2>&1 | tee ${ff}
+        completed=`grep completed ${ff} | wc -l`
+        running=`grep running ${ff} | wc -l`
+        waiting=`grep active ${ff} | wc -l`
+        echo "Jobs: ${completed} completed, ${running} running, ${waiting} waiting."
         ;;
     init)
         addpool
@@ -134,4 +139,4 @@ esac
 tarfile=`mktemp -u -p . config.XXXX.tgz` 
 tar czf ${tarfile} -C ${conf_dir} .
 rm -rf ${conf_dir}
-echo "Configuration files in: "${tarfile}
+echo "Shipyard configuration files in: "${tarfile}
