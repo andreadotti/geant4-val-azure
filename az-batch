@@ -1,0 +1,140 @@
+#!/bin/bash 
+
+function querystatus {
+    shipyard jobs listtasks --credentials `credentials_file` --config `config_file` --pool `pool_file` --jobs `jobs_file` 2>&1 
+}
+
+function generate_jobs_file {
+    [ -z "${conf_file}" ] && return
+    [ -z "${recipe}" ] && return
+    therecipe=`jq -r ".recipes.${recipe}" ${conf_file}`
+    if [ "${therecipe}" != "null" ];then
+       eval $therecipe
+       echo ".gen-jobs.json"
+    else
+       echo "ERROR: recipe ${recipe} not found" 1>&2
+       exit 1
+    fi
+}
+
+function addpool {
+    echo shipyard pool add --credentials `credentials_file` --config `config_file` --pool `pool_file`
+}
+
+function submitjobs {
+    [ -z "${conf_file}" ] && usage
+    pool=`jq '.add_pool' ${conf_file}`
+    [ $pool == "true" ] && addpool
+    shipyard jobs add --credentials `credentials_file` --config `config_file` --pool `pool_file` --jobs `jobs_file` 
+}
+
+
+function termjobs {
+    read -p "Confirm termination of jobs [y/N]?" answer
+    case "$answer" in
+            [yY]*) 
+                    shipyard jobs deltasks -y --wait --credentials `credentials_file` --config `config_file` --pool `pool_file` --jobs `jobs_file`
+                    shipyard jobs term -y --wait --credentials `credentials_file` --config `config_file` --pool `pool_file` --jobs `jobs_file`
+                    shipyard jobs del -y --wait --credentials `credentials_file` --config `config_file` --pool `pool_file` --jobs `jobs_file`
+                    ;;
+                *)
+                    ;;
+    esac 
+}
+
+function clearall {
+    read -p "Confirm deletion of pool [y/N]?" answer
+    case "$answer" in
+        [yY]*) 
+                echo shipyard pool del --credentials `credentials_file` --config `config_file` --pool `pool_file`
+                ;;
+        *)
+                ;;
+    esac
+}
+
+function credentials_file {
+    [ -z "${conf_file}" ] && usage
+    jq -r '.configurations.credentials' ${conf_file}
+}
+
+function config_file {
+    [ -z "${conf_file}" ] && usage
+    jq -r '.configurations.config' ${conf_file}
+}
+
+function pool_file {
+    [ -z "${conf_file}" ] && usage
+    jq -r '.configurations.pool' ${conf_file}
+}
+
+function jobs_file {
+    [ -z "${conf_file}" ] && usage
+    temp=`jq -r '.configurations.jobs' ${conf_file}`
+    #If no jobs file is specified, genreate one
+    [ ${temp} == "null" ]&& generate_jobs_file || echo ${temp}
+}
+
+
+function usage { 
+    echo "Usage: $0 <command> [-h] [-r <recipe>] <summaryfile>" 1>&2
+    echo "" 1>&2
+    echo "where: " 1>&2
+    echo "    <command> is one of:" 1>&2
+    echo "       status: show satus if tasks" 1>&2
+    echo "       init:   initialize job pool" 1>&2
+    echo "       submit: submit jobs to pool" 1>&2
+    echo "       finish: deallocate pool" 1>&2
+    echo "       kill:   kill tasks, jobs and clean pool" 1>&2
+    echo "    <summaryfile> is a json file containgin summary configuraation" 1>&2
+    echo "    <recipe> is a recipe name from summary file to generate the .gen-jobs.json jobs file" 1>&2
+    exit 1
+}
+
+
+cmd=$1
+if [ -z "${cmd}" ];then
+    usage
+fi
+shift 1
+
+while getopts ":r:h:" o; do
+    case "${o}" in
+        r)
+            recipe=${OPTARG}
+            ;;
+        h)
+            usage
+            ;;
+        *)
+            usage
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+if [ $# -lt 1 ];then
+    usage
+fi
+conf_file=$1
+
+case "${cmd}" in
+    status)
+        querystatus
+        ;;
+    init)
+        addpool
+        ;;
+    submit)
+        submitjobs
+        ;;
+    finish)
+        clearall
+        ;;
+    kill)
+        termjobs
+        ;;
+    *)
+        usage
+        ;;
+esac
+
