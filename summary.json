@@ -1,5 +1,7 @@
 {
   "add_pool": false,
+  "docker_image":"andreadotti/geant4-val:latest",
+  "azure_output_container":"processtest-xs-10-3",
   "configurations": {
     "credentials": "credentials.json",
     "config": "config.json",
@@ -9,7 +11,7 @@
   "recipes": {
     "crosssections": "cd ProcessTest && python gen-jobs.py crosssections-list.json ../.gen-jobs.json && cd ../",
     "FTFP_BERT": "cd ProcessTest && ./all_macros.sh FTFP_BERT && python gen-jobs.py singleinteractions-FTFP_BERT-list.json ../.gen-jobs.json && cd ../",
-    "FTFP_BERT": "cd ProcessTest && ./all_macros.sh QGSP_BERT && python gen-jobs.py singleinteractions-QGSP_BERT-list.json ../.gen-jobs.json && cd ../"
+    "QGSP_BERT": "cd ProcessTest && ./all_macros.sh QGSP_BERT && python gen-jobs.py singleinteractions-QGSP_BERT-list.json ../.gen-jobs.json && cd ../"
   }
 }
 

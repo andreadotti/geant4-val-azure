@@ -1,32 +1,31 @@
 {
-    "batch_shipyard": {
-        "storage_account_settings": "miscellaneus"
-    },
-    "global_resources": {
-        "docker_images": [
-            "andreadotti/geant4-val:latest"
-        ],
-        "docker_volumes": {
-            "shared_data_volumes": {
-                    "g4dbsvol": {
-                        "volume_driver": "azurefile",
-                        "storage_account_settings": "g4databases",
-                        "azure_file_share_name": "g4db",
-                        "container_path": "/usr/local/geant4/data",
-                        "mount_options": [
-                            "filemode=0744",
-                            "dirmode=0744",
-                            "nolock=true"
-                        ]
-                    }
-            },
-            "data_volumes" : {
-                    "output": {
-                        "host_path": "$AZ_BATCH_NODE_SHARED_DIR",
-                        "container_path":"/output"
-                    }
-            }
+  "batch_shipyard": {
+    "storage_account_settings": "miscellaneus"
+  },
+  "global_resources": {
+    "docker_images": [
+      "andreadotti/geant4-val:cippa"
+    ],
+    "docker_volumes": {
+      "shared_data_volumes": {
+        "g4dbsvol": {
+          "volume_driver": "azurefile",
+          "storage_account_settings": "g4databases",
+          "azure_file_share_name": "g4db",
+          "container_path": "/usr/local/geant4/data",
+          "mount_options": [
+            "filemode=0744",
+            "dirmode=0744",
+            "nolock=true"
+          ]
         }
-
+      },
+      "data_volumes": {
+        "output": {
+          "host_path": "$AZ_BATCH_NODE_SHARED_DIR",
+          "container_path": "/output"
+        }
+      }
     }
+  }
 }
