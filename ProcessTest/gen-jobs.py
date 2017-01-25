@@ -32,10 +32,13 @@ _job[u'id']=_id
 _task=(_job[u'tasks'][0])
 _job[u'tasks']=[]
 
+_tid=0
 for _cmd in _tasks_list[_id]:
     _t=copy.copy(_task)
+    _t[u'id']=str(_tid)
     _t[u'command']=_cmd
     _job[u'tasks'].append(_t)
+    _tid += 1
 
 _finalout={ u'job_specifications': [ _job ] }
 _of=file(outputfile,"w")

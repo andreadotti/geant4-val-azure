@@ -4,6 +4,7 @@
             "id": "id",
             "tasks": [
                 {
+                    "id": "0",
                     "image": "andreadotti/geant4-val:latest",
                     "shared_data_volumes": [
                         "g4dbsvol"
