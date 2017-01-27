@@ -72,3 +72,16 @@ these two options:
     be passed as a separate data-volume, the problem is the version number
     that depends on the G4 version
 
+### Download results from a storage container
+To get the list of files in a storage blob container (remember to setup `AZURE_STORAGE_KEY` and
+`AZURE_STORAGE_ACCOUNT`:
+```
+az storage blob list -c <blob-container> | jq -r '.[].name'
+blobxfer $AZURE_STORAGE_ACCOUNT <blob-container> . --storageaccountkey $AZURE_STORAGE_KEY --remoteresource <file-to-download|.for all> --download
+```
+For example to download all cross sections files (called crosssections*.tgz):
+```
+blobxfer $AZURE_STORAGE_ACCOUNT <blob-container> . --storageaccountkey $AZURE_STORAGE_KEY --remoteresource . --download --include 'crosssections*.tgz'
+```
+
+
