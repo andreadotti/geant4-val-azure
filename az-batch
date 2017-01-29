@@ -37,20 +37,72 @@ function generate_jobs_file {
 }
 
 function addpool {
-    shipyard pool add --configdir ${conf_dir} 
+    echo shipyard pool add --configdir ${conf_dir} 
 }
 
 function termjobs {
-    read -p "Confirm termination of jobs [y/N]?" answer
+    [ -z ${task_id} ] && read -p "Confirm termination of *ALL* jobs [y/N]?" answer || read -p "Confirm termination of jobs [y/N]?" answer
     case "$answer" in
             [yY]*) 
-                    shipyard jobs deltasks -y --wait --configdir ${conf_dir}
-                    shipyard jobs term -y --wait --configdir ${conf_dir} 
-                    shipyard jobs del -y --wait --configdir ${conf_dir} 
+                    #If job id not specified, guess it from configurtion 
+                    [ -z ${job_id} ] && job_id=`jq -r '.job_specifications[0].id' ${conf_dir}/jobs.json`
+                    cmd="shipyard jobs termtasks -y --wait --configdir ${conf_dir} --jobid ${job_id}"
+                    [ ! -z ${task_id} ] && cmd=${cmd}" --taskid ${task_id}"
+                    eval ${cmd}
                     ;;
                 *)
                     ;;
     esac 
+}
+
+function querystatus {
+        ff=`mktemp`
+        cmd="shipyard jobs listtasks --configdir ${conf_dir} 2>&1"
+        [ ! -z ${job_id} ] && cmd=${cmd}" | grep job_id=${job_id}"
+        [ ! -z ${task_id} ] && cmd=${cmd}" | grep task_id=${task_id}"
+        cmd="${cmd} | tee ${ff}"
+        eval ${cmd}
+        completed=`grep completed ${ff} | wc -l`
+        running=`grep running ${ff} | wc -l`
+        waiting=`grep active ${ff} | wc -l`
+        echo "Jobs: ${completed} completed, ${running} running, ${waiting} waiting."
+        case "${subcmd}" in
+                completed)
+                        job=`cat ${ff} | head -n1 | awk '{print $5}' | sed 's/job_id=//'`
+                        tasks=`cat ${ff} | grep completed | awk '{print $6}' | sed 's/task_id=//'`
+                        echo "============ COMPLETED ============"
+                        echo $job $tasks
+                        ;;
+                running)
+                        job=`cat ${ff} | head -n1 | awk '{print $5}' | sed 's/job_id=//'`
+                        tasks=`cat ${ff} | grep running | awk '{print $6}' | sed 's/task_id=//'`
+                        echo "============ RUNNING ============"
+                        echo $job $tasks
+                        ;;
+                waiting)
+                        job=`cat ${ff} | head -n1 | awk '{print $5}' | sed 's/job_id=//'`
+                        tasks=`cat ${ff} | grep active | awk '{print $6}' | sed 's/task_id=//'`
+                        echo "============ WAITING============"
+                        echo $job $tasks
+                        ;;
+                *)
+                        ;; 
+        esac
+}
+
+function getfiles {
+    #If job_id is not specified get it from jobs.json file
+    [ -z ${job_id} ] &&  job_id=`jq -r '.job_specifications[0].id' ${conf_dir}/jobs.json` 
+    #If task id is not specified assume all tasks    
+    [ -z "${task_id}" ] && task_id='*'
+    #Create a list of tasks, or the one(s) specified or all tasks
+    [ "${task_id}" == '*' ] && tasks=`jq -r '.job_specifications[0].tasks[].id' ${conf_dir}/jobs.json` || tasks=${task_id}
+    #If no subcmd is specified retrieve all files
+    [ "X"${subcmd} == "X" ] && subcmd="'*'"
+    for task_id in $tasks;do
+        cmd="shipyard data getfile --configdir ${conf_dir} --filespec ${job_id},${task_id},${subcmd} --all"
+        eval ${cmd}
+    done
 }
 
 function clearall {
@@ -65,20 +117,26 @@ function clearall {
 }
 
 function usage { 
-    echo "Usage: $0 <command> [-h] [-r <recipe>] <summaryfile>" 1>&2
+    echo "Usage: $0 <command> [<subcommand>] [-h] [-v] [-r <recipe>] [-j <job_id>] [-t <task_id>] <summaryfile>" 1>&2
     echo "" 1>&2
     echo "where: " 1>&2
     echo "    <command> is one of:" 1>&2
     echo "       status: show satus if tasks" 1>&2
+    echo "               subcommands: [completed|running|waiting], print job_id and task_id of tasks in specified status" 1>&2
     echo "       init:   initialize job pool" 1>&2
     echo "       submit: submit jobs to pool" 1>&2
     echo "       finish: deallocate pool" 1>&2
     echo "       kill:   kill tasks, jobs and clean pool" 1>&2
+    echo "       getfile: retrieve file(s) for specified job and task id. If no file is specified, retrieve all files." 1>&2
+    echo "                if no job id is specified, retrieve it from configuration." 1>&2
+    echo "                subcommands: [<filename>], retrieve only the specified task output file (e.g. stdout.txt)." 1>&2 
     echo "    <summaryfile> is a json file containgin summary configuraation" 1>&2
-    echo "    <recipe> is a recipe name from summary file to generate the .gen-jobs.json jobs file" 1>&2
+    echo "    -r <recipe> is a recipe name from summary file to generate the .gen-jobs.json jobs file" 1>&2
+    echo "    -j <job_id> and -t <task_id> specify the job and task to operate on. Not all commands use these field." 1>&2
+    echo "    -v turn on verbosity." 1>&2
+    echo "    -h show this help." 1>&2
     exit 1
 }
-
 
 cmd=$1
 if [ -z "${cmd}" ];then
@@ -86,7 +144,17 @@ if [ -z "${cmd}" ];then
 fi
 shift 1
 
-while getopts ":r:h:" o; do
+#Check if subcommnad exists, (cmd+)subcmd+summaryfile => other two arguments
+subcmd=""
+if [ $# -gt 1 ];then
+    if [ "$1" != "-r" ] && [ "$1" != "-h" ] && [ "$1" != "-j" ] && [ "$1" != "-t" ] && [ "$1" != "-v" ];then 
+        subcmd=$1
+        shift 1
+    fi
+fi
+
+verbose=0
+while getopts ":r:h:j:t:" o; do
     case "${o}" in
         r)
             recipe=${OPTARG}
@@ -94,16 +162,28 @@ while getopts ":r:h:" o; do
         h)
             usage
             ;;
+        j) 
+            job_id=${OPTARG}
+            ;;
+        t)
+            task_id=${OPTARG}
+            ;;
+        v)
+            verbose=1
+            ;;
         *)
             usage
             ;;
     esac
 done
 shift $((OPTIND-1))
+
 if [ $# -lt 1 ];then
     usage
 fi
+
 conf_file=$1
+
 
 #Generate/transform configuration files for shipyard
 conf_dir=`mktemp -d`
@@ -111,12 +191,7 @@ genfiles
 
 case "${cmd}" in
     status)
-        ff=`mktemp`
-        shipyard jobs listtasks --configdir ${conf_dir} 2>&1 | tee ${ff}
-        completed=`grep completed ${ff} | wc -l`
-        running=`grep running ${ff} | wc -l`
-        waiting=`grep active ${ff} | wc -l`
-        echo "Jobs: ${completed} completed, ${running} running, ${waiting} waiting."
+        querystatus
         ;;
     init)
         addpool
@@ -132,6 +207,9 @@ case "${cmd}" in
     kill)
         termjobs
         ;;
+    getfile)
+        getfiles
+        ;;
     *)
         usage
         ;;
@@ -139,4 +217,4 @@ esac
 tarfile=`mktemp -u -p . config.XXXX.tgz` 
 tar czf ${tarfile} -C ${conf_dir} .
 rm -rf ${conf_dir}
-echo "Shipyard configuration files in: "${tarfile}
+[ $verbose -gt 0 ] && echo "Shipyard configuration files in: "${tarfile}
