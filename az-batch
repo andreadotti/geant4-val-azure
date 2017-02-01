@@ -41,7 +41,15 @@ function addpool {
 }
 
 function termjobs {
-    [ -z ${task_id} ] && read -p "Confirm termination of *ALL* jobs [y/N]?" answer || read -p "Confirm termination of jobs [y/N]?" answer
+    if [ ${force_yes} != 1 ];then
+        if [ -z ${task_id} ];then 
+                read -p "Confirm termination of *ALL* jobs [y/N]?" answer
+        else 
+                read -p "Confirm termination of jobs [y/N]?" answer
+        fi
+    else
+        answer="y"
+    fi
     case "$answer" in
             [yY]*) 
                     #If job id not specified, guess it from configurtion 
@@ -106,33 +114,49 @@ function getfiles {
 }
 
 function clearall {
-    read -p "Confirm deletion of pool [y/N]?" answer
+    [ ${force_yes} != 1 ] && read -p "Confirm deletion of tasks, jobs [y/N]?" answer || answer="y"
     case "$answer" in
         [yY]*) 
-                echo shipyard pool del --configdir ${conf_dir}
+                [ -z ${job_id} ] && job_id=`jq -r '.job_specifications[0].id' ${conf_dir}/jobs.json`
+                shipyard jobs deltasks --wait --jobid ${job_id} --configdir ${conf_dir}
+                shipyard jobs del --wait --jobid ${job_id} --configdir ${conf_dir}
                 ;;
         *)
                 ;;
     esac
 }
 
+function terminate {
+    [ ${force_yes} != 1 ] && read -p "Confirm deletion of tasks, jobs [y/N]?" answer || answer="y"
+    case "$answer" in
+        [yY]*) 
+                echo shipyard pool del --wait --configdir ${conf_dir}
+                ;;
+            *)
+                ;;
+    esac
+}
+
 function usage { 
-    echo "Usage: $0 <command> [<subcommand>] [-h] [-v] [-r <recipe>] [-j <job_id>] [-t <task_id>] <summaryfile>" 1>&2
+    echo "Usage: $0 <command> [<subcommand>] [-y] [-h] [-v] [-r <recipe>] [-j <job_id>] [-t <task_id>] <summaryfile>" 1>&2
     echo "" 1>&2
     echo "where: " 1>&2
     echo "    <command> is one of:" 1>&2
-    echo "       status: show satus if tasks" 1>&2
-    echo "               subcommands: [completed|running|waiting], print job_id and task_id of tasks in specified status" 1>&2
-    echo "       init:   initialize job pool" 1>&2
-    echo "       submit: submit jobs to pool" 1>&2
-    echo "       finish: deallocate pool" 1>&2
-    echo "       kill:   kill tasks, jobs and clean pool" 1>&2
-    echo "       getfile: retrieve file(s) for specified job and task id. If no file is specified, retrieve all files." 1>&2
-    echo "                if no job id is specified, retrieve it from configuration." 1>&2
-    echo "                subcommands: [<filename>], retrieve only the specified task output file (e.g. stdout.txt)." 1>&2 
+    echo "       status:    show satus if tasks" 1>&2
+    echo "                  subcommands: [completed|running|waiting], " 1>&2
+    echo "                  print job_id and task_id of tasks in specified status" 1>&2
+    echo "       init:      initialize job pool" 1>&2
+    echo "       submit:    submit jobs to pool" 1>&2
+    echo "       clear:     clear tasks and jobs " 1>&1
+    echo "       terminate: deallocate pool" 1>&2
+    echo "       kill:      kill tasks, jobs and clean pool" 1>&2
+    echo "       getfile:   retrieve file(s) for specified job and task id. If no file is specified, retrieve all files." 1>&2
+    echo "                  if no job id is specified, retrieve it from configuration." 1>&2
+    echo "                  subcommands: [<filename>], retrieve only the specified task output file (e.g. stdout.txt)." 1>&2 
     echo "    <summaryfile> is a json file containgin summary configuraation" 1>&2
     echo "    -r <recipe> is a recipe name from summary file to generate the .gen-jobs.json jobs file" 1>&2
     echo "    -j <job_id> and -t <task_id> specify the job and task to operate on. Not all commands use these field." 1>&2
+    echo "    -y answer yes to all questions" 1>&2
     echo "    -v turn on verbosity." 1>&2
     echo "    -h show this help." 1>&2
     exit 1
@@ -147,14 +171,15 @@ shift 1
 #Check if subcommnad exists, (cmd+)subcmd+summaryfile => other two arguments
 subcmd=""
 if [ $# -gt 1 ];then
-    if [ "$1" != "-r" ] && [ "$1" != "-h" ] && [ "$1" != "-j" ] && [ "$1" != "-t" ] && [ "$1" != "-v" ];then 
+    if [ "$1" != "-r" ] && [ "$1" != "-h" ] && [ "$1" != "-j" ] && [ "$1" != "-t" ] && [ "$1" != "-v" ] && [ "$1" != "-y" ];then 
         subcmd=$1
         shift 1
     fi
 fi
 
 verbose=0
-while getopts ":r:h:j:t:" o; do
+force_yes=0
+while getopts ":r:h:j:t:y" o; do
     case "${o}" in
         r)
             recipe=${OPTARG}
@@ -170,6 +195,9 @@ while getopts ":r:h:j:t:" o; do
             ;;
         v)
             verbose=1
+            ;;
+        y)
+            force_yes=1
             ;;
         *)
             usage
@@ -201,8 +229,11 @@ case "${cmd}" in
         [ $pool == "true" ] && addpool
         shipyard jobs add --configdir ${conf_dir}
         ;;
-    finish)
+    clear)
         clearall
+        ;;
+    terminate)
+        deletepool
         ;;
     kill)
         termjobs
