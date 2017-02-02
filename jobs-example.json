@@ -1,9 +1,10 @@
 {
     "job_specifications": [
         {
-            "id": "crosssections-job",
+            "id": "example-mytest",
             "tasks": [
                 {
+                    "id":"0",
                     "image": "andreadotti/geant4-val:latest",
                     "shared_data_volumes": [
                         "g4dbsvol"
@@ -22,7 +23,7 @@
                         ]
                     },
                     "remove_container_after_exit": true,
-                    "command": "/runme.sh FTFP_BERT run.mac && ls $AZ_BATCH_NODE_SHARED_DIR "
+                    "command": "echo this_is_executed_in_the_container && echo this_is_executed_on_node_after_container_ends"
                 }
             ]
         }
