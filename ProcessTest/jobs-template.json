@@ -17,7 +17,7 @@
                             {
                                 "storage_account_settings": "g4data",
                                 "container": "processtest-xs-10-3",
-                                "source": "$AZ_BATCH_NODE_SHARED_DIR",
+                                "source": "$AZ_BATCH_TASK_WORKING_DIR",
                                 "include": [ "*.tgz" ]
                             }
                         ]

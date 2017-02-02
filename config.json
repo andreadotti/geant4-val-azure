@@ -4,7 +4,7 @@
   },
   "global_resources": {
     "docker_images": [
-      "andreadotti/geant4-val:cippa"
+      "andreadotti/geant4-val:latest"
     ],
     "docker_volumes": {
       "shared_data_volumes": {
@@ -22,7 +22,7 @@
       },
       "data_volumes": {
         "output": {
-          "host_path": "$AZ_BATCH_NODE_SHARED_DIR",
+          "host_path": "$AZ_BATCH_TASK_WORKING_DIR",
           "container_path": "/output"
         }
       }
