@@ -37,7 +37,7 @@ function generate_jobs_file {
 }
 
 function addpool {
-    echo shipyard pool add --configdir ${conf_dir} 
+    shipyard pool add --configdir ${conf_dir} 
 }
 
 function termjobs {
