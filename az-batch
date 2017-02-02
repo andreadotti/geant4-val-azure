@@ -117,9 +117,14 @@ function clearall {
     [ ${force_yes} != 1 ] && read -p "Confirm deletion of tasks, jobs [y/N]?" answer || answer="y"
     case "$answer" in
         [yY]*) 
-                [ -z ${job_id} ] && job_id=`jq -r '.job_specifications[0].id' ${conf_dir}/jobs.json`
-                shipyard jobs deltasks -y --wait --jobid ${job_id} --configdir ${conf_dir}
-                shipyard jobs del -y --wait --jobid ${job_id} --configdir ${conf_dir}
+                #Job not specified, delete only tasks
+                if [ -z "${job_id}" ];then  
+                        job_id=`jq -r '.job_specifications[0].id' ${conf_dir}/jobs.json`
+                        shipyard jobs deltasks -y --wait --jobid ${job_id} --configdir ${conf_dir}
+                else
+                        shipyard jobs deltasks -y --wait --jobid ${job_id} --configdir ${conf_dir}
+                        shipyard jobs del -y --wait --jobid ${job_id} --configdir ${conf_dir}
+                fi
                 ;;
         *)
                 ;;
@@ -147,7 +152,7 @@ function usage {
     echo "                  print job_id and task_id of tasks in specified status" 1>&2
     echo "       init:      initialize job pool" 1>&2
     echo "       submit:    submit jobs to pool" 1>&2
-    echo "       clear:     clear tasks and jobs " 1>&1
+    echo "       clear:     clear tasks and optionally jobs " 1>&1
     echo "       terminate: deallocate pool" 1>&2
     echo "       kill:      kill tasks, jobs and clean pool" 1>&2
     echo "       getfile:   retrieve file(s) for specified job and task id. If no file is specified, retrieve all files." 1>&2
