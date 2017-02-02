@@ -118,8 +118,8 @@ function clearall {
     case "$answer" in
         [yY]*) 
                 [ -z ${job_id} ] && job_id=`jq -r '.job_specifications[0].id' ${conf_dir}/jobs.json`
-                shipyard jobs deltasks --wait --jobid ${job_id} --configdir ${conf_dir}
-                shipyard jobs del --wait --jobid ${job_id} --configdir ${conf_dir}
+                shipyard jobs deltasks -y --wait --jobid ${job_id} --configdir ${conf_dir}
+                shipyard jobs del -y --wait --jobid ${job_id} --configdir ${conf_dir}
                 ;;
         *)
                 ;;
@@ -127,10 +127,10 @@ function clearall {
 }
 
 function terminate {
-    [ ${force_yes} != 1 ] && read -p "Confirm deletion of tasks, jobs [y/N]?" answer || answer="y"
+    [ ${force_yes} != 1 ] && read -p "Confirm deletion of pool [y/N]?" answer || answer="y"
     case "$answer" in
         [yY]*) 
-                echo shipyard pool del --wait --configdir ${conf_dir}
+                shipyard pool del -y --wait --configdir ${conf_dir}
                 ;;
             *)
                 ;;
@@ -233,7 +233,7 @@ case "${cmd}" in
         clearall
         ;;
     terminate)
-        deletepool
+        terminate 
         ;;
     kill)
         termjobs
