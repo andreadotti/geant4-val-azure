@@ -16,7 +16,7 @@
                         "azure_storage": [
                             {
                                 "storage_account_settings": "g4data",
-                                "container": "processtest-10-3-0-9-7",
+                                "container": "name_will_be_changed",
                                 "source": "$AZ_BATCH_TASK_WORKING_DIR",
                                 "include": [ "*.tgz" ]
                             }
