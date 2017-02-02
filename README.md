@@ -21,6 +21,9 @@ Since the corresponding jobs json configuration file is quite long and
 tedious to write, scripts to genrate them are provided. Refer to the 
 instructions contained in that directory.
 
+**Note:** for some functionalities, this script requires that tasks have an 
+explicit id, thus is mandatory, differently from original shipyard.
+
 ## Start tasks
  1. Add pool: `shipyard pool add --credentials credentials.json --config global.json --pool pool.json`
  2. Generate jobs file if needed: `cd ProcessTest && python gen-jobs-crosssections.py crosssections-list.json`
