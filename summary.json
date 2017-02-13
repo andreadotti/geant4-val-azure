@@ -10,20 +10,20 @@
   },
   "recipes": {
     "crosssections": "cd ProcessTest && python gen-jobs.py crosssections-list.json ../.gen-jobs.json && cd ../",
-    "FTFP_BERT-Compton": "cd ProcessTest && ./all_macros.sh FTFP_BERT Compton && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-Compton.json ../.gen-jobs.json && cd ../",
-    "FTFP_BERT-GammaElectroNuclear": "cd ProcessTest && ./all_macros.sh FTFP_BERT GammaElectroNuclear && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-GammaElectroNuclear.json ../.gen-jobs.json && cd ../",
-    "FTFP_BERT-HadEl": "cd ProcessTest && ./all_macros.sh FTFP_BERT HadEl && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-HadEl.json ../.gen-jobs.json && cd ../",
-    "FTFP_BERT-HadInel": "cd ProcessTest && ./all_macros.sh FTFP_BERT HadInel && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-HadInel.json ../.gen-jobs.json && cd ../",
-    "FTFP_BERT-Ionization": "cd ProcessTest && ./all_macros.sh FTFP_BERT Ionization && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-Ionization.json ../.gen-jobs.json && cd ../",
-    "FTFP_BERT-nCapture": "cd ProcessTest && ./all_macros.sh FTFP_BERT nCapture && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-nCapture.json ../.gen-jobs.json && cd ../",
-    "FTFP_BERT-PairProduction": "cd ProcessTest && ./all_macros.sh FTFP_BERT PairProduction && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-PairProduction.json ../.gen-jobs.json && cd ../",
-    "QGSP_BERT-Compton": "cd ProcessTest && ./all_macros.sh QGSP_BERT Compton && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-Compton.json ../.gen-jobs.json && cd ../",
-    "QGSP_BERT-GammaElectroNuclear": "cd ProcessTest && ./all_macros.sh QGSP_BERT GammaElectroNuclear && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-GammaElectroNuclear.json ../.gen-jobs.json && cd ../",
-    "QGSP_BERT-HadEl": "cd ProcessTest && ./all_macros.sh QGSP_BERT HadEl && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-HadEl.json ../.gen-jobs.json && cd ../",
-    "QGSP_BERT-HadInel": "cd ProcessTest && ./all_macros.sh QGSP_BERT HadInel && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-HadInel.json ../.gen-jobs.json && cd ../",
-    "QGSP_BERT-Ionization": "cd ProcessTest && ./all_macros.sh QGSP_BERT Ionization && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-Ionization.json ../.gen-jobs.json && cd ../",
-    "QGSP_BERT-nCapture": "cd ProcessTest && ./all_macros.sh QGSP_BERT nCapture && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-nCapture.json ../.gen-jobs.json && cd ../",
-    "QGSP_BERT-PairProduction": "cd ProcessTest && ./all_macros.sh QGSP_BERT PairProduction && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-PairProduction.json ../.gen-jobs.json && cd ../"
+    "FTFP_BERT_Compton": "cd ProcessTest && ./all_macros.sh FTFP_BERT Compton && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-Compton.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_GammaElectroNuclear": "cd ProcessTest && ./all_macros.sh FTFP_BERT GammaElectroNuclear && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-GammaElectroNuclear.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_HadEl": "cd ProcessTest && ./all_macros.sh FTFP_BERT HadEl && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-HadEl.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_HadInel": "cd ProcessTest && ./all_macros.sh FTFP_BERT HadInel && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-HadInel.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_Ionization": "cd ProcessTest && ./all_macros.sh FTFP_BERT Ionization && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-Ionization.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_nCapture": "cd ProcessTest && ./all_macros.sh FTFP_BERT nCapture && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-nCapture.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_PairProduction": "cd ProcessTest && ./all_macros.sh FTFP_BERT PairProduction && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-PairProduction.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_Compton": "cd ProcessTest && ./all_macros.sh QGSP_BERT Compton && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-Compton.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_GammaElectroNuclear": "cd ProcessTest && ./all_macros.sh QGSP_BERT GammaElectroNuclear && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-GammaElectroNuclear.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_HadEl": "cd ProcessTest && ./all_macros.sh QGSP_BERT HadEl && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-HadEl.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_HadInel": "cd ProcessTest && ./all_macros.sh QGSP_BERT HadInel && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-HadInel.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_Ionization": "cd ProcessTest && ./all_macros.sh QGSP_BERT Ionization && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-Ionization.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_nCapture": "cd ProcessTest && ./all_macros.sh QGSP_BERT nCapture && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-nCapture.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_PairProduction": "cd ProcessTest && ./all_macros.sh QGSP_BERT PairProduction && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-PairProduction.json ../.gen-jobs.json && cd ../"
   }
 }
 
