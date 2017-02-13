@@ -12,7 +12,8 @@ host_db=/home/adotti/Work/share/G4data
 
 all_macros=`docker run -v"${host_db}:/usr/local/geant4/data:ro" --rm andreadotti/geant4-val:latest find validation/${pname} -name run.mac`
 
-out_file=singleinteractions-${pl}-${pname}-list.json
+[ "X"${pname} == "X" ] && pname="all"
+out_file=tasks-singleinteractions-${pl}-${pname}.json
 
 cat <<EOF > .${out_file}
  {
