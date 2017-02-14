@@ -18,13 +18,13 @@ auto-generating the configuration files.
 Prerequisites
 -------------
 
- 1. (jq)[https://stedolan.github.io/jq/]
- 2. (batch-shipyard)[https://github.com/Azure/batch-shipyard] requires at
-    least version 2.5.1
+ 1. [jq](https://stedolan.github.io/jq/)
+ 2. [batch-shipyard](https://github.com/Azure/batch-shipyard) at least 
+    version 2.5.1 is required
 
 Usage
 -----
-Type `az-batch` for help. The general structure of the command is
+Type `az-batch -h` for help. The general structure of the command is
 `az-batch <command> [subcommand] [options] <summaryfile>`. 
 For example to submit jobs according to a recipe (see later), you will:
 
