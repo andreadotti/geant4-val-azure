@@ -129,3 +129,7 @@ Some notes for reference.
 To remove tasks meta-data: `shipyard jobs del --credentials credentials.json --config global.json --pool pool.json --jobs jobs-example.json`
 To remove pool: `shipyard pool del --credentials credentials.json --config global.json --pool pool.json --jobs jobs-example.json`
 
+### Docker
+A docker container is available. The `Dockerfile` is the one used to create the image on 
+dockerhub: `andreadotti/geant4-azure-tools`.
+ 
