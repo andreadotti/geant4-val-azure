@@ -74,17 +74,16 @@ File content:
    `jobs`, this can be null, in such a case it will be auto generated
    following one of the provided recipes.
  * `recipes` is an object containing properties (the recipe names) and one
-   or more bash commands that are used to **generate** a valid
+   or more bash commands that are used to generate a valid
    batch-shipyard jobs.json configuration file.
 
 Note that the az-batch script may modify some of the batch-shipyard
 configuration files based on the content of the summary.json file (e.g.
 the docker image to be used).  
-Recipes is a string of shell commands to generate jobs json file. 
+Recipes are strings of shell commands to generate jobs json file. 
 The auto-generated file should be called `.gen-jobs.json` and should be
 placed in the same directory where all other json files are located.
 
-The high-level script will modify/generate json files used by shipyard. 
 A tarball containing these generated files will be created in $PWD.
 
 *TODO?*: move all configuration files inline in summary.json (script will
@@ -94,18 +93,18 @@ Batch-shipyard configuration files and additional informaiton
 -------------------------------------------------------------
 
 ### Credentials
-Copy the `credentials-template.json` file and add the credentials from
+Copy the `credentials-template.json` file and add the passwords from
 azure accunts and docker registries.
 
 ### General configuraions and pools
-`global.conf` and `pool.json` configure general aspecs and the pool to be
+`global.conf` and `pool.json` configure general parameters and the pool to be
 used.
 
 ### Example for jobs configuration
 The file `jobs-example.json` is a standalone example with a single task 
 using the 
-`andreadotti/geant4-val:latest` docker image that should contain the
-`ProcessTest` application.
+[andreadotti/geant4-val:latest](https://hub.docker.com/r/andreadotti/geant4-val/) 
+docker image that should contain the `ProcessTest` application.
 
 Under the directory `ProcessTest` real configuration files can be found.  
 Since the corresponding jobs json configuration file is quite long and 
@@ -131,5 +130,5 @@ To remove pool: `shipyard pool del --credentials credentials.json --config globa
 
 ### Docker
 A docker container is available. The `Dockerfile` is the one used to create the image on 
-dockerhub: `andreadotti/geant4-azure-tools`.
+dockerhub: [andreadotti/geant4-azure-tools](https://hub.docker.com/r/andreadotti/geant4-azure-tools/).
  
