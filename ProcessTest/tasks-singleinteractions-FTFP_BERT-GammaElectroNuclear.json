@@ -1,5 +1,5 @@
  {
-    "singleinteractions-FTFP_BERT" : [
+    "singleinteractions-FTFP_BERT-GammaElectroNuclear" : [
       "/runme.sh FTFP_BERT validation/GammaElectroNuclear/e-/9GeV/G4_Be/run.mac",
       "/runme.sh FTFP_BERT validation/GammaElectroNuclear/e-/9GeV/G4_V/run.mac",
       "/runme.sh FTFP_BERT validation/GammaElectroNuclear/e-/9GeV/G4_Tl/run.mac",

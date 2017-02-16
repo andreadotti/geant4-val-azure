@@ -1,5 +1,5 @@
  {
-    "singleinteractions-FTFP_BERT" : [
+    "singleinteractions-FTFP_BERT-Ionization" : [
       "/runme.sh FTFP_BERT validation/Ionization/e-/G4_Be/Cut1km/run.mac",
       "/runme.sh FTFP_BERT validation/Ionization/e-/G4_V/Cut1km/run.mac",
       "/runme.sh FTFP_BERT validation/Ionization/e-/G4_Tl/Cut1km/run.mac",

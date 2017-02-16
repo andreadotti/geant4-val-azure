@@ -1,5 +1,5 @@
  {
-    "singleinteractions-FTFP_BERT" : [
+    "singleinteractions-FTFP_BERT-PairProduction" : [
       "/runme.sh FTFP_BERT validation/PairProduction/200GeV/G4_Be/run.mac",
       "/runme.sh FTFP_BERT validation/PairProduction/200GeV/G4_V/run.mac",
       "/runme.sh FTFP_BERT validation/PairProduction/200GeV/G4_Tl/run.mac",
