@@ -20,7 +20,7 @@ function genfiles {
     [ ${temp} == "null" ]&& temp=`generate_jobs_file`
     #Change the docker image name to the one specified in ${conf_file} itself
     #Change the name of the azure container (note the same name expressing two things) on which store output of the application
-    jq --slurpfile summ ${conf_file} '.job_specifications[].tasks[].output_data.azure_storage[0].container=$summ[0].azure_output_container' ${temp} | jq --slurpfile summ ${conf_file} '.job_specifications[].tasks[].image=$summ[0].docker_image' > ${conf_dir}/jobs.json
+    [ "X"${temp} != "X" ] && jq --slurpfile summ ${conf_file} '.job_specifications[].tasks[].output_data.azure_storage[0].container=$summ[0].azure_output_container' ${temp} | jq --slurpfile summ ${conf_file} '.job_specifications[].tasks[].image=$summ[0].docker_image' > ${conf_dir}/jobs.json
 }
 
 function generate_jobs_file {
@@ -38,6 +38,10 @@ function generate_jobs_file {
 
 function addpool {
     shipyard pool add --configdir ${conf_dir} 
+}
+
+function listjobs {
+    shipyard jobs list --configdir ${conf_dir}
 }
 
 function termjobs {
@@ -147,9 +151,10 @@ function usage {
     echo "" 1>&2
     echo "where: " 1>&2
     echo "    <command> is one of:" 1>&2
-    echo "       status:    show satus if tasks" 1>&2
-    echo "                  subcommands: [completed|running|waiting], " 1>&2
-    echo "                  print job_id and task_id of tasks in specified status" 1>&2
+    echo "       status:    show satus of tasks" 1>&2
+    echo "                  subcommands: [completed|running|waiting|jobs], " 1>&2
+    echo "                      jobs: list jobs in pool, " 1>&2 
+    echo "                      completed|running|waiting : limit to specified status" 1>&2
     echo "       init:      initialize job pool" 1>&2
     echo "       submit:    submit jobs to pool" 1>&2
     echo "       clear:     clear tasks and optionally jobs " 1>&1
@@ -224,7 +229,7 @@ genfiles
 
 case "${cmd}" in
     status)
-        querystatus
+        [ "$subcmd" == "jobs" ] && listjobs || querystatus
         ;;
     init)
         addpool
