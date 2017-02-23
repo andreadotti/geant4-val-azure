@@ -8,9 +8,9 @@ pl=$1
 pname=""
 [ $# -ge 2 ]&& pname=$2
 
-host_db=/home/adotti/Work/share/G4data
+[ $# -ge 3 ]&& host_db=$3 || host_db=/geant4-sw/data
 
-all_macros=`docker run -v"${host_db}:/usr/local/geant4/data:ro" --rm andreadotti/geant4-val:latest find validation/${pname} -name run.mac`
+all_macros=`docker run -v "${host_db}:/usr/local/geant4/data:ro" --rm andreadotti/geant4-val:latest find validation/${pname} -name run.mac`
 
 [ "X"${pname} == "X" ] && pname="all"
 out_file=tasks-singleinteractions-${pl}-${pname}.json
