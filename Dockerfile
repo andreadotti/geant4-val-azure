@@ -15,7 +15,7 @@ RUN cd batch-shipyard && \
     chmod +x install-new.sh && ./install-new.sh 
 
 ###RUN cd / && git clone https://github.com/andreadotti/geant4-val-azure.git 
-COPY az-batch config.json credentials-template.json jobs-example.json pool.json *.md /geant4-val-azure/
+COPY az-batch config.json credentials-template.json jobs-example.json pool.json summary-docker.json summary.json *.md /geant4-val-azure/
 COPY ProcessTest /geant4-val-azure/ProcessTest/
 
 ENV PATH="$PATH:/geant4-val-azure:/batch-shipyard"

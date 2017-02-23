@@ -137,7 +137,17 @@ To remove pool: `shipyard pool del --credentials credentials.json --config globa
 ### Docker
 A docker container is available. The `Dockerfile` is the one used to create the image on 
 dockerhub: [andreadotti/geant4-azure-tools](https://hub.docker.com/r/andreadotti/geant4-azure-tools/).  
-To use this in docker, do not use the `provided summary.json` file, but instead the `summary-docker.json` file, the former
-uses docker itself to generate some intermediate files. The latter uses pre-generated files found under ProcessTest. If something
-in the application changes these files must be re-generated.
- 
+To use this in docker, do not use the `provided summary.json` file, but instead 
+the `summary-docker.json` file, the former uses docker itself to generate some 
+intermediate files. The latter uses pre-generated files found under ProcessTest.
+ If something in the application changes these files must be re-generated.  
+How to use. On the host setup the credentials file, then run:
+```
+docker run -t -i -v "$PWD:/myjobs:rw" andreadotti/geant4-azure-rools /bin/bash
+$ cd /myjobs
+$ az-batch init summary-docker.json
+$ az-batch submit -r FTFP_BERT_Compton summary-docker.json
+```
+If you need to manipulate database files, add another `-v` option mounting the 
+volume with the DBs in the image.  
+
