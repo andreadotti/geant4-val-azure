@@ -92,6 +92,12 @@ then split the files into the shipyard ones)
 Batch-shipyard configuration files and additional informaiton
 -------------------------------------------------------------
 
+### Note on accounts being used
+In the various json configuration files storage and batch accounts
+are referenced via aliases. The Azure identifier (name) of the accounts
+should be changed in the `credentials.json` file and **not** in the other
+files (e.g. `config.json`).
+
 ### Credentials
 Copy the `credentials-template.json` file and add the passwords from
 azure accunts and docker registries.
