@@ -18,7 +18,7 @@ auto-generating the configuration files.
 Prerequisites
 -------------
 
- 1. [jq](https://stedolan.github.io/jq/)
+ 1. [jq](https://stedolan.github.io/jq/) Ver > 1.3 (works with 1.5)
  2. [batch-shipyard](https://github.com/Azure/batch-shipyard) at least 
     version 2.5.1 is required
 
@@ -136,5 +136,8 @@ To remove pool: `shipyard pool del --credentials credentials.json --config globa
 
 ### Docker
 A docker container is available. The `Dockerfile` is the one used to create the image on 
-dockerhub: [andreadotti/geant4-azure-tools](https://hub.docker.com/r/andreadotti/geant4-azure-tools/).
+dockerhub: [andreadotti/geant4-azure-tools](https://hub.docker.com/r/andreadotti/geant4-azure-tools/).  
+To use this in docker, do not use the `provided summary.json` file, but instead the `summary-docker.json` file, the former
+uses docker itself to generate some intermediate files. The latter uses pre-generated files found under ProcessTest. If something
+in the application changes these files must be re-generated.
  

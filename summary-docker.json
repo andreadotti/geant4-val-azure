@@ -1,0 +1,29 @@
+{
+  "add_pool": false,
+  "docker_image":"andreadotti/geant4-val:latest",
+  "azure_output_container":"processtest-10-3-0-9-8",
+  "configurations": {
+    "credentials": "credentials.json",
+    "config": "config.json",
+    "pool": "pool.json",
+    "jobs": null 
+  },
+  "recipes": {
+    "crosssections": "cd ProcessTest && python gen-jobs.py crosssections-list.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_Compton": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-Compton.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_GammaElectroNuclear": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-GammaElectroNuclear.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_HadEl": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-HadEl.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_HadInel": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-HadInel.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_Ionization": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-Ionization.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_nCapture": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-nCapture.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_PairProduction": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-PairProduction.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_Compton": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-Compton.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_GammaElectroNuclear": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-GammaElectroNuclear.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_HadEl": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-HadEl.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_HadInel": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-HadInel.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_Ionization": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-Ionization.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_nCapture": "cd ProcessTest && ./all_macros.sh QGSP_BERT nCapture && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-nCapture.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_PairProduction": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-PairProduction.json ../.gen-jobs.json && cd ../"
+  }
+}
+
