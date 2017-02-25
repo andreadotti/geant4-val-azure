@@ -22,7 +22,7 @@
     "QGSP_BERT_HadEl": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-HadEl.json ../.gen-jobs.json && cd ../",
     "QGSP_BERT_HadInel": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-HadInel.json ../.gen-jobs.json && cd ../",
     "QGSP_BERT_Ionization": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-Ionization.json ../.gen-jobs.json && cd ../",
-    "QGSP_BERT_nCapture": "cd ProcessTest && ./all_macros.sh QGSP_BERT nCapture && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-nCapture.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_nCapture": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-nCapture.json ../.gen-jobs.json && cd ../",
     "QGSP_BERT_PairProduction": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-PairProduction.json ../.gen-jobs.json && cd ../"
   }
 }
