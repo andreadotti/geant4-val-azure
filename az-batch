@@ -72,8 +72,8 @@ function querystatus {
         cmd="shipyard jobs listtasks --configdir ${conf_dir} 2>&1"
         [ ! -z ${job_id} ] && cmd=${cmd}" | grep job_id=${job_id}"
         [ ! -z ${task_id} ] && cmd=${cmd}" | grep task_id=${task_id}"
-        cmd="${cmd} | tee ${ff}"
-        eval ${cmd}
+	[ $verbose -ge 1 ] && eval ${cmd} | tee ${ff} || eval ${cmd} > ${ff}
+        #eval ${cmd}
         completed=`grep completed ${ff} | wc -l`
         running=`grep running ${ff} | wc -l`
         waiting=`grep active ${ff} | wc -l`
@@ -112,9 +112,15 @@ function getfiles {
     #If no subcmd is specified retrieve all files
     [ "X"${subcmd} == "X" ] && subcmd="'*'"
     for task_id in $tasks;do
-        cmd="shipyard data getfile --configdir ${conf_dir} --filespec ${job_id},${task_id},${subcmd} --all"
-        eval ${cmd}
+        cmd="shipyard data getfile --configdir ${conf_dir} --filespec ${job_id},${task_id},${subcmd} --all 2>&1 "
+	if [ $verbose -lt 1 ];then 
+	  eval ${cmd} > /dev/null
+          echo -ne "."
+	else
+	  eval ${cmd}
+	fi
     done
+    [ $verbose -lt 1 ] && echo -ne '\n'
 }
 
 function clearall {
@@ -189,7 +195,7 @@ fi
 
 verbose=0
 force_yes=0
-while getopts ":r:h:j:t:y" o; do
+while getopts ":r:h:j:t:yv" o; do
     case "${o}" in
         r)
             recipe=${OPTARG}
