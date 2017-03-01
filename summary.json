@@ -32,7 +32,7 @@
     "FTFP_BERT_EMY_PairProduction": "cd ProcessTest && ./all_macros.sh FTFP_BERT_EMY PairProduction && python gen-jobs.py tasks-singleinteractions-FTFP_BERT_EMY-PairProduction.json ../.gen-jobs.json && cd ../",
     "FTFP_BERT_EMZ_Compton": "cd ProcessTest && ./all_macros.sh FTFP_BERT_EMZ Compton && python gen-jobs.py tasks-singleinteractions-FTFP_BERT_EMZ-Compton.json ../.gen-jobs.json && cd ../",
     "FTFP_BERT_EMZ_Ionization": "cd ProcessTest && ./all_macros.sh FTFP_BERT_EMZ Ionization && python gen-jobs.py tasks-singleinteractions-FTFP_BERT_EMZ-Ionization.json ../.gen-jobs.json && cd ../",
-    "FTFP_BERT_EMZ_PairProduction": "cd ProcessTest && ./all_macros.sh FTFP_BERT_EMZ PairProduction && python gen-jobs.py tasks-singleinteractions-FTFP_BERT_EMZ-PairProduction.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_EMZ_PairProduction": "cd ProcessTest && ./all_macros.sh FTFP_BERT_EMZ PairProduction && python gen-jobs.py tasks-singleinteractions-FTFP_BERT_EMZ-PairProduction.json ../.gen-jobs.json && cd ../"
   }
 }
 
