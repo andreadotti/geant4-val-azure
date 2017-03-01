@@ -44,6 +44,14 @@ function listjobs {
     shipyard jobs list --configdir ${conf_dir}
 }
 
+function listpool {
+    shipyard pool list --configdir ${conf_dir}
+}
+
+function listnodes {
+    shipyard pool listnodes --configdir ${conf_dir}
+}
+
 function termjobs {
     if [ ${force_yes} != 1 ];then
         if [ -z ${task_id} ];then 
@@ -158,8 +166,10 @@ function usage {
     echo "where: " 1>&2
     echo "    <command> is one of:" 1>&2
     echo "       status:    show satus of tasks" 1>&2
-    echo "                  subcommands: [completed|running|waiting|jobs], " 1>&2
+    echo "                  subcommands: [completed|running|waiting|jobs|pool|nodes], " 1>&2
     echo "                      jobs: list jobs in pool, " 1>&2 
+    echo "			pool: show pools status, " 1>&2
+    echo " 			nodes: show nodes status, " 1>&2
     echo "                      completed|running|waiting : limit to specified status" 1>&2
     echo "       init:      initialize job pool" 1>&2
     echo "       submit:    submit jobs to pool" 1>&2
@@ -235,7 +245,21 @@ genfiles
 
 case "${cmd}" in
     status)
-        [ "$subcmd" == "jobs" ] && listjobs || querystatus
+        case "${subcmd}" in
+	   jobs)
+		listjobs
+		;;
+	   pool)
+		listpool
+		;;
+	   nodes)
+		listnodes
+		;;
+	   *)
+		querystatus
+		;;
+	esac
+        #[ "$subcmd" == "jobs" ] && listjobs || querystatus
         ;;
     init)
         addpool
