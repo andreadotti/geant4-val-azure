@@ -17,7 +17,7 @@ out_file=tasks-singleinteractions-${pl}-${pname}.json
 
 cat <<EOF > .${out_file}
  {
-    "singleinteractions-${pl}-${pname}" : [
+    "${pl}_${pname}" : [
 EOF
 
 for macro in $all_macros;do
