@@ -25,8 +25,6 @@ function genfiles {
 	#Receipe passed, if output contanier is not specifed use the recipe name
 	jq --slurpfile summ ${conf_file} --arg containername ${cname} 'if $summ[0].azure_output_container != null then .job_specifications[].tasks[].output_data.azure_storage[0].container=$summ[0].azure_output_container else .job_specifications[].tasks[].output_data.azure_storage[0].container=$containername end' ${temp} | jq --slurpfile summ ${conf_file} '.job_specifications[].tasks[].image=$summ[0].docker_image' > ${conf_dir}/jobs.json
     fi
-    echo ${conf_dir}
-    exit
 }
 
 function generate_jobs_file {
@@ -40,6 +38,10 @@ function generate_jobs_file {
        echo "ERROR: recipe ${recipe} not found" 1>&2
        exit 1
     fi
+}
+
+function resizepool {
+    shipyard pool resize --wait -y --configdir ${conf_dir}
 }
 
 function connecttonode {
@@ -190,6 +192,7 @@ function usage {
     echo "                  if no job id is specified, retrieve it from configuration." 1>&2
     echo "                  subcommands: [<filename>], retrieve only the specified task output file (e.g. stdout.txt)." 1>&2 
     echo "       connect:   connect to a node. Subcommand must be specified and is the node id. "1>&2
+    echo "       resize:    resize pool following content of configuration files. "1>&2
     echo "    <summaryfile> is a json file containgin summary configuraation" 1>&2
     echo "    -r <recipe> is a recipe name from summary file to generate the .gen-jobs.json jobs file" 1>&2
     echo "    -j <job_id> and -t <task_id> specify the job and task to operate on. Not all commands use these field." 1>&2
@@ -294,6 +297,9 @@ case "${cmd}" in
         ;;
     connect)
 	connecttonode
+	;;
+    resize)
+	resizepool
 	;;
     *)
         usage
