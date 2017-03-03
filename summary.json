@@ -1,7 +1,7 @@
 {
   "add_pool": false,
   "docker_image":"andreadotti/geant4-val:latest",
-  "azure_output_container":"processtest-10-3-0-9-8",
+  "azure_output_container":null,
   "configurations": {
     "credentials": "credentials.json",
     "config": "config.json",

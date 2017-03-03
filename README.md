@@ -51,7 +51,7 @@ File content:
 {
   "add_pool": false,
   "docker_image":"andreadotti/geant4-val:latest",
-  "azure_output_container":"processtest-10-3-0-9-8",
+  "azure_output_container":null,
   "configurations": {
     "credentials": "credentials.json",
     "config": "config.json",
@@ -68,7 +68,10 @@ File content:
    submitting jobs. 
  * `docker_image` is the Geant4 validation docker image to use.
  * `azure_output_container` is the name of the Azure storage container
-   blob where to store output data. It should already exist.
+   blob where to store output data. It should already exist. If null, 
+   container name is the recipe name being used (if no recipe is used
+   a default name "outpucontainer" is used). The container is created
+   on the storage account if not present.
  * `configurations` an object specifying the names of the batch-shipyard
    configuration files. They must all be present with the expcetion of
    `jobs`, this can be null, in such a case it will be auto generated
