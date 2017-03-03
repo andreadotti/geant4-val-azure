@@ -21,7 +21,7 @@ function genfiles {
     #Change the docker image name to the one specified in ${conf_file} itself
     #Change the name of the azure container (note the same name expressing two things) on which store output of the application
     if [ "X"${temp} != "X" ];then 
-	[ "X"${recipe} != "X" ] && cname=`echo $recipe | sed 's/_/-/g' | tr '[:upper:]' '[:lower:]'` || cname="outputcontainer"
+	[ "X"${recipe} != "X" ] && cname=`echo $recipe | sed 's/_/-/g' | tr -cd '[[:alnum:]-]' | tr '[:upper:]' '[:lower:]'` || cname="outputcontainer"
 	#Receipe passed, if output contanier is not specifed use the recipe name
 	jq --slurpfile summ ${conf_file} --arg containername ${cname} 'if $summ[0].azure_output_container != null then .job_specifications[].tasks[].output_data.azure_storage[0].container=$summ[0].azure_output_container else .job_specifications[].tasks[].output_data.azure_storage[0].container=$containername end' ${temp} | jq --slurpfile summ ${conf_file} '.job_specifications[].tasks[].image=$summ[0].docker_image' > ${conf_dir}/jobs.json
     fi
