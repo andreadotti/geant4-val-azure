@@ -36,6 +36,10 @@ function generate_jobs_file {
     fi
 }
 
+function connecttonode {
+    shipyard pool ssh --nodeid ${subcmd} --configdir ${conf_dir}
+}
+
 function addpool {
     shipyard pool add --configdir ${conf_dir} 
 }
@@ -179,6 +183,7 @@ function usage {
     echo "       getfile:   retrieve file(s) for specified job and task id. If no file is specified, retrieve all files." 1>&2
     echo "                  if no job id is specified, retrieve it from configuration." 1>&2
     echo "                  subcommands: [<filename>], retrieve only the specified task output file (e.g. stdout.txt)." 1>&2 
+    echo "       connect:   connect to a node. Subcommand must be specified and is the node id. "1>&2
     echo "    <summaryfile> is a json file containgin summary configuraation" 1>&2
     echo "    -r <recipe> is a recipe name from summary file to generate the .gen-jobs.json jobs file" 1>&2
     echo "    -j <job_id> and -t <task_id> specify the job and task to operate on. Not all commands use these field." 1>&2
@@ -281,6 +286,9 @@ case "${cmd}" in
     getfile)
         getfiles
         ;;
+    connect)
+	connecttonode
+	;;
     *)
         usage
         ;;
