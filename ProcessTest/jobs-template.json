@@ -18,7 +18,8 @@
                                 "storage_account_settings": "g4data",
                                 "container": "name_will_be_changed",
                                 "source": "$AZ_BATCH_TASK_WORKING_DIR",
-                                "include": [ "*.tgz" ]
+                                "include": [ "*.tgz" ],
+				"blobxfer_extra_options":"--no-computefilemd5 --no-skiponmatch --timeout 600"
                             }
                         ]
                     },

@@ -16,14 +16,15 @@
                         "azure_storage": [
                             {
                                 "storage_account_settings": "g4data",
-                                "container": "processtest-xs-10-3",
-                                "source": "$AZ_BATCH_NODE_SHARED_DIR",
-                                "include": [ "*.tgz" ]
+                                "container": "testme",
+                                "source": "$AZ_BATCH_TASK_WORKING_DIR",
+                                "include": [ "*.tgz" ],
+				"blobxfer_extra_options":"--no-computefilemd5 --no-skiponmatch --timeout 600"
                             }
                         ]
                     },
                     "remove_container_after_exit": true,
-                    "command": "echo this_is_executed_in_the_container && echo this_is_executed_on_node_after_container_ends"
+                    "command": "/runme.sh FTFP_BERT run.mac"
                 }
             ]
         }
