@@ -1,5 +1,5 @@
  {
-    "singleinteractions-QGSP_BERT-all" : [
+    "QGSP_BERT" : [
       "/runme.sh QGSP_BERT validation/GammaElectroNuclear/e-/20GeV/G4_Os/run.mac",
       "/runme.sh QGSP_BERT validation/GammaElectroNuclear/e-/20GeV/G4_He/run.mac",
       "/runme.sh QGSP_BERT validation/GammaElectroNuclear/e-/20GeV/G4_Au/run.mac",
