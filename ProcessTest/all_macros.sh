@@ -13,7 +13,7 @@ pname=""
 all_macros=`docker run -v "${host_db}:/usr/local/geant4/data:ro" --rm andreadotti/geant4-val:latest find validation/${pname} -name run.mac`
 
 [ "X"${pname} == "X" ] && pname="all"
-out_file=tasks-singleinteractions-${pl}-${pname}.json
+out_file=tasks-singleinteractions-${pl}-`echo ${pname} | sed 's/\//-/g'`.json
 
 cat <<EOF > .${out_file}
  {
