@@ -32,7 +32,21 @@
     "FTFP_BERT_EMY_PairProduction": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT_EMY-PairProduction.json ../.gen-jobs.json && cd ../",
     "FTFP_BERT_EMZ_Compton": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT_EMZ-Compton.json ../.gen-jobs.json && cd ../",
     "FTFP_BERT_EMZ_Ionization": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT_EMZ-Ionization.json ../.gen-jobs.json && cd ../",
-    "FTFP_BERT_EMZ_PairProduction": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT_EMZ-PairProduction.json ../.gen-jobs.json && cd ../"
+    "FTFP_BERT_EMZ_PairProduction": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT_EMZ-PairProduction.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_HadEl_anti_proton": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-HadInel-anti_proton.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_HadEl_proton": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-HadInel-proton.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_HadEl_kaon-": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-HadInel-kaon-.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_HadEl_kaon+": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-HadInel-kaon+.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_HadEl_pi-": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-HadInel-pi-.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_HadEl_pi+": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-HadInel-pi+.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_HadEl_neutron": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-HadInel-neutron.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_HadEl_anti_proton": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-HadInel-anti_proton.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_HadEl_proton": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-HadInel-proton.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_HadEl_kaon-": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-HadInel-kaon-.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_HadEl_kaon+": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-HadInel-kaon+.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_HadEl_pi-": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-HadInel-pi-.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_HadEl_pi+": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-HadInel-pi+.json ../.gen-jobs.json && cd ../",
+    "QGSP_BERT_HadEl_neutron": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-HadInel-neutron.json ../.gen-jobs.json && cd ../"
   }
 }
 

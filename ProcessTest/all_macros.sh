@@ -15,6 +15,7 @@ all_macros=`docker run -v "${host_db}:/usr/local/geant4/data:ro" --rm andreadott
 [ "X"${pname} == "X" ] && pname="all"
 out_file=tasks-singleinteractions-${pl}-`echo ${pname} | sed 's/\//-/g'`.json
 
+pname=`echo ${pname} | sed 's/\//_/g' | sed 's/-/Minus/g' | sed 's/+/Plus/g'`
 cat <<EOF > .${out_file}
  {
     "${pl}_${pname}" : [
