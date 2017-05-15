@@ -19,6 +19,7 @@
     "/runme.xs.sh 17 20",
     "/runme.xs.sh 18 20",
     "/runme.xs.sh 19 20",
-    "/runme.xs.sh 20 20"
-  ]
+    "/runme.xs.sh 20 20",
+    "/runme.xs.sh 1,1,2"
+    ]
 }
