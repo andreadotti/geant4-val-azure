@@ -63,7 +63,14 @@
     "QGSP_BERT_HadEl_pi+": "cd ProcessTest && ./all_macros.sh FTFP_BERT HadEl/pi+ && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-HadEl-pi+.json ../.gen-jobs.json && cd ../",
     "QGSP_BERT_HadEl_neutron": "cd ProcessTest && ./all_macros.sh FTFP_BERT HadEl/neutron && python gen-jobs.py tasks-singleinteractions-QGSP_BERT-HadEl-neutron.json ../.gen-jobs.json && cd ../",
     "FTFP_BERT_HP_Fission": "cd ProcessTest && ./all_macros.sh FTFP_BERT_HP LowE/Fission && python gen-jobs.py tasks-singleinteractions-FTFP_BERT_HP-lowE-Fission.json ../.gen-jobs.json && cd ../",
-    "ShieldingLEND_Fission": "cd ProcessTest && ./all_macros.sh ShieldingLEND LowE/Fission && python gen-jobs.py tasks-singleinteractions-ShieldingLEND-lowE-Fission.json ../.gen-jobs.json && cd ../"
+    "ShieldingLEND_Fission": "cd ProcessTest && ./all_macros.sh ShieldingLEND LowE/Fission && python gen-jobs.py tasks-singleinteractions-ShieldingLEND-lowE-Fission.json ../.gen-jobs.json && cd ../",
+    "ShieldingLEND_HadEl_neutron": "cd ProcessTest && ./all_macros.sh ShieldingLEND LowE/HadEl/neutron && python gen-jobs.py tasks-singleinteractions-ShieldingLEND-lowE-HadEl-neutron.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_HP_HadEl_neutron": "cd ProcessTest && ./all_macros.sh FTFP_BERT_HP LowE/HadEl/neutron && python gen-jobs.py tasks-singleinteractions-FTFP_BERT_HP-lowE-HadEl-neutron.json ../.gen-jobs.json && cd ../",
+    "ShieldingLEND_HadInel_neutron": "cd ProcessTest && ./all_macros.sh ShieldingLEND LowE/HadInel/neutron && python gen-jobs.py tasks-singleinteractions-ShieldingLEND-lowE-HadInel-neutron.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_HP_nCapture": "cd ProcessTest && ./all_macros.sh FTFP_BERT_HP LowE/nCapture && python gen-jobs.py tasks-singleinteractions-FTFP_BERT_HP-lowE-HadInel-neutron.json ../.gen-jobs.json && cd ../",
+    "ShieldingLEND_nCapture": "cd ProcessTest && ./all_macros.sh ShieldingLEND LowE/nCapture && python gen-jobs.py tasks-singleinteractions-ShieldingLEND-lowE-HadInel-neutron.json ../.gen-jobs.json && cd ../",
+    "FTFP_BERT_HP_HadInel_neutron": "cd ProcessTest && ./all_macros.sh FTFP_BERT_HP LowE/HadInel/neutron && python gen-jobs.py tasks-singleinteractions-FTFP_BERT_HP-lowE-HadInel-neutron.json ../.gen-jobs.json && cd ../"
+
   }
 }
 
