@@ -39,6 +39,7 @@
     "QGSP_BIC_EMY_GammaElectroNuclear": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-GammaElectroNuclear.json ../.gen-jobs.json && cd ../",
     "QGSP_BIC_EMY_Ionization": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-QGSP_BIC_EMY-Ionization.json ../.gen-jobs.json && cd ../",
     "QGSP_BIC_EMY_PairProduction": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-QGSP_BIC_EMY-PairProduction.json ../.gen-jobs.json && cd ../",
+    "QGSP_BIC_EMY_nCapture": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-QGSP_BIC_EMY-nCapture.json ../.gen-jobs.json && cd ../",
     "FTFP_BERT_HadInel_anti_proton": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-HadInel-anti_proton.json ../.gen-jobs.json && cd ../",
     "FTFP_BERT_HadInel_proton": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-HadInel-proton.json ../.gen-jobs.json && cd ../",
     "FTFP_BERT_HadInel_kaon-": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-FTFP_BERT-HadInel-kaon-.json ../.gen-jobs.json && cd ../",
