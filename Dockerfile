@@ -18,7 +18,7 @@ USER g4-azure
 WORKDIR /home/g4-azure
 
 RUN git clone https://github.com/Azure/batch-shipyard.git
-RUN cd batch-shipyard && ./install.sh
+RUN cd batch-shipyard && ./install.sh -e shipyard.venv
 
 COPY az-batch config.json credentials-template.json jobs-example.json pool.json summary.json *.md /geant4-val-azure/
 COPY ProcessTest /geant4-val-azure/ProcessTest/
