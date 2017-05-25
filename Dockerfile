@@ -4,7 +4,7 @@ MAINTAINER Andrea Dotti (adotti@slac.stanford.edu)
 
 RUN apt update -y && apt install -y libssl-dev libffi-dev \
 		     python-dev build-essential git jq \
-		     python-pip sudo
+		     python-pip sudo vim
 
 RUN pip install --upgrade pip && pip install --prefix /usr/local --upgrade blobxfer
 RUN pip install --prefix /usr/local azure-cli
