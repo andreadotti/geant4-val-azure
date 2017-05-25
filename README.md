@@ -50,6 +50,7 @@ File content:
 ```
 {
   "add_pool": false,
+  "registry": null,
   "docker_image":"andreadotti/geant4-val:latest",
   "azure_output_container":null,
   "configurations": {
@@ -66,6 +67,10 @@ File content:
 
  * If `add_pool` is set to true, initialize pool automatically when
    submitting jobs. 
+ * Specify in `registry` the server name for the registry (e.g. gitlab-registry.cern.ch)
+   If images are on github no need to specify.  If a registry
+   is specified, the `credentials.json` file must contain an entry in 
+   `docker_registry` with the registry name as property for username and pwd
  * `docker_image` is the Geant4 validation docker image to use.
  * `azure_output_container` is the name of the Azure storage container
    blob where to store output data. It should already exist. If null, 

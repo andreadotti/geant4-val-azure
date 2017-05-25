@@ -1,5 +1,6 @@
 {
   "add_pool": false,
+  "registry": null,
   "docker_image":"andreadotti/geant4-val:latest",
   "azure_output_container":null,
   "configurations": {

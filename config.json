@@ -4,7 +4,7 @@
   },
   "global_resources": {
     "docker_images": [
-      "andreadotti/geant4-val:latest"
+      "VALUE_WILL_BE_GENERATED"
     ],
     "docker_volumes": {
       "shared_data_volumes": {

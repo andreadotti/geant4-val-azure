@@ -5,7 +5,7 @@
             "tasks": [
                 {
                     "id": "0",
-                    "image": "andreadotti/geant4-val:latest",
+                    "image": "VALUE_IS_GENERATED",
                     "shared_data_volumes": [
                         "g4dbsvol"
                     ],
@@ -16,7 +16,7 @@
                         "azure_storage": [
                             {
                                 "storage_account_settings": "g4data",
-                                "container": "name_will_be_changed",
+                                "container": "VALUE_IS_GENERATED",
                                 "source": "$AZ_BATCH_TASK_WORKING_DIR",
                                 "include": [ "*.tgz" ],
 				"blobxfer_extra_options":"--no-computefilemd5 --no-skiponmatch --timeout 600"
@@ -24,7 +24,7 @@
                         ]
                     },
                     "remove_container_after_exit": true,
-                    "command": ""
+                    "command": "VALUE_IS_GENERATED"
                 }
             ]
         }
