@@ -9,7 +9,9 @@ function genfiles {
     #File name of the config.json file
     temp=`jq -r '.configurations.config' ${conf_file}`
     #Change the docker image name to the one specified in ${conf_file} itself
-    jq --slurpfile summ ${conf_file} '.global_resources.docker_images[0]=$summ[0].docker_image' ${temp} > ${conf_dir}/config.json
+    #Note that if we specified a registry we need to add an additional property
+    #to config.json
+    jq --slurpfile summ ${conf_file} '.global_resources.docker_images[0]=$summ[0].docker_image | if $summ[0].registry != null then .docker_registry.private.server=$summ[0].registry else . end' ${temp} > ${conf_dir}/config.json
     
     #Pool
     cp `jq -r '.configurations.pool' ${conf_file}` ${conf_dir}/pool.json
@@ -23,7 +25,7 @@ function genfiles {
     if [ "X"${temp} != "X" ];then 
 	[ "X"${recipe} != "X" ] && cname=`echo $recipe | sed 's/_/-/g' | tr -cd '[[:alnum:]-]' | tr '[:upper:]' '[:lower:]'` || cname="outputcontainer"
 	#Receipe passed, if output contanier is not specifed use the recipe name
-	jq --slurpfile summ ${conf_file} --arg containername ${cname} 'if $summ[0].azure_output_container != null then .job_specifications[].tasks[].output_data.azure_storage[0].container=$summ[0].azure_output_container else .job_specifications[].tasks[].output_data.azure_storage[0].container=$containername end' ${temp} | jq --slurpfile summ ${conf_file} '.job_specifications[].tasks[].image=$summ[0].docker_image' > ${conf_dir}/jobs.json
+	jq --slurpfile summ ${conf_file} --arg containername ${cname} 'if $summ[0].azure_output_container != null then .job_specifications[].tasks[].output_data.azure_storage[0].container=$summ[0].azure_output_container else .job_specifications[].tasks[].output_data.azure_storage[0].container=$containername end | .job_specifications[].tasks[].image=$summ[0].docker_image' ${temp} > ${conf_dir}/jobs.json
     fi
 }
 
@@ -256,7 +258,6 @@ conf_file=$1
 #Generate/transform configuration files for shipyard
 conf_dir=`mktemp -d`
 genfiles
-
 case "${cmd}" in
     status)
         case "${subcmd}" in
