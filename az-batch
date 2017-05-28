@@ -69,9 +69,9 @@ function listnodes {
 function termjobs {
     if [ ${force_yes} != 1 ];then
         if [ -z ${task_id} ];then 
-                read -p "Confirm termination of *ALL* jobs [y/N]?" answer
+                read -p "Confirm termination of *ALL* tasks [y/N]?" answer
         else 
-                read -p "Confirm termination of jobs [y/N]?" answer
+                read -p "Confirm termination of task [y/N]?" answer
         fi
     else
         answer="y"
@@ -145,18 +145,29 @@ function getfiles {
     [ $verbose -lt 1 ] && echo -ne '\n'
 }
 
-function clearall {
-    [ ${force_yes} != 1 ] && read -p "Confirm deletion of tasks, jobs [y/N]?" answer || answer="y"
+function deljob {
+    [ ${force_yes} != 1 ] && read -p "Confirm deletion of job [y/N]?" answer || answer="y"
     case "$answer" in
-        [yY]*) 
-                #Job not specified, delete only tasks
+        [yY]*)
+		#Get job from jobs.json file 
                 if [ -z "${job_id}" ];then  
                         job_id=`jq -r '.job_specifications[0].id' ${conf_dir}/jobs.json`
-                        shipyard jobs deltasks -y --wait --jobid ${job_id} --configdir ${conf_dir}
-                else
-                        shipyard jobs deltasks -y --wait --jobid ${job_id} --configdir ${conf_dir}
-                        shipyard jobs del -y --wait --jobid ${job_id} --configdir ${conf_dir}
                 fi
+                shipyard jobs del -y --wait --jobid ${job_id} --configdir ${conf_dir}
+                ;;
+        *)
+                ;;
+    esac
+}
+
+function deltasks {
+    [ ${force_yes} != 1 ] && read -p "Confirm deletion of tasks [y/N]?" answer || answer="y"
+    case "$answer" in
+        [yY]*) 
+                if [ -z "${job_id}" ];then  
+                        job_id=`jq -r '.job_specifications[0].id' ${conf_dir}/jobs.json`
+		fi                
+        	shipyard jobs deltasks -y --wait --jobid ${job_id} --configdir ${conf_dir}
                 ;;
         *)
                 ;;
@@ -185,11 +196,12 @@ function usage {
     echo "			pool: show pools status, " 1>&2
     echo " 			nodes: show nodes status, " 1>&2
     echo "                      completed|running|waiting : limit to specified status" 1>&2
-    echo "       init:      initialize job pool" 1>&2
-    echo "       submit:    submit jobs to pool" 1>&2
-    echo "       clear:     clear tasks and optionally jobs " 1>&1
+    echo "       init:      initialize pool" 1>&2
+    echo "       submit:    submit a job" 1>&2
+    echo "       deljob:    delete a job (accepts -j)" 1>&2
+    echo "       deltasks:  delte tasks associated to a job (accepts -j)" 1>&2
     echo "       terminate: deallocate pool" 1>&2
-    echo "       kill:      kill tasks, jobs and clean pool" 1>&2
+    echo "       kill:      kill tasks (accepts -j, -t)" 1>&2
     echo "       getfile:   retrieve file(s) for specified job and task id. If no file is specified, retrieve all files." 1>&2
     echo "                  if no job id is specified, retrieve it from configuration." 1>&2
     echo "                  subcommands: [<filename>], retrieve only the specified task output file (e.g. stdout.txt)." 1>&2 
@@ -284,9 +296,12 @@ case "${cmd}" in
         [ $pool == "true" ] && addpool
         shipyard jobs add --configdir ${conf_dir}
         ;;
-    clear)
-        clearall
+    deljob)
+        deljob
         ;;
+    deltasks)
+	deltasks
+	;;
     terminate)
         terminate 
         ;;
