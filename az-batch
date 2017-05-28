@@ -92,7 +92,8 @@ function termjobs {
 function querystatus {
         ff=`mktemp`
         cmd="shipyard jobs listtasks --configdir ${conf_dir} 2>&1"
-        [ ! -z ${job_id} ] && cmd=${cmd}" | grep job_id=${job_id}"
+        [ ! -z ${job_id} ] && cmd=${cmd}" --jobid ${job_id}"
+	cmd=${cmd}" 2>&1"
         [ ! -z ${task_id} ] && cmd=${cmd}" | grep task_id=${task_id}"
 	[ $verbose -ge 1 ] && eval ${cmd} | tee ${ff} || eval ${cmd} > ${ff}
         #eval ${cmd}
@@ -190,12 +191,12 @@ function usage {
     echo "" 1>&2
     echo "where: " 1>&2
     echo "    <command> is one of:" 1>&2
-    echo "       status:    show satus of tasks" 1>&2
+    echo "       status:    show satus of tasks (accepts -j, -r)" 1>&2
     echo "                  subcommands: [completed|running|waiting|jobs|pool|nodes], " 1>&2
-    echo "                      jobs: list jobs in pool, " 1>&2 
-    echo "			pool: show pools status, " 1>&2
+    echo "                      jobs: list all jobs in pool, " 1>&2 
+    echo "			pool: show pool status, " 1>&2
     echo " 			nodes: show nodes status, " 1>&2
-    echo "                      completed|running|waiting : limit to specified status" 1>&2
+    echo "                      completed|running|waiting : print task IDs in specified status" 1>&2
     echo "       init:      initialize pool" 1>&2
     echo "       submit:    submit a job" 1>&2
     echo "       deljob:    delete a job (accepts -j)" 1>&2
