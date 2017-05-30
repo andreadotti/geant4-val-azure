@@ -100,7 +100,7 @@ function querystatus {
         completed=`grep completed ${ff} | wc -l`
         running=`grep running ${ff} | wc -l`
         waiting=`grep active ${ff} | wc -l`
-        echo "Jobs: ${completed} completed, ${running} running, ${waiting} waiting."
+        echo "Tasks (completed/running/waiting): ${completed} / ${running} / ${waiting}"
         case "${subcmd}" in
                 completed)
                         job=`cat ${ff} | head -n1 | awk '{print $5}' | sed 's/job_id=//'`
