@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cli="./az-batch-local"
+cli="az-batch"
 defaultsummary="summary.json"
 joblimit=20
 
