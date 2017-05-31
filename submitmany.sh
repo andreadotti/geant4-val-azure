@@ -69,7 +69,7 @@ if [ $# -lt 1 ];then
 fi
 
 for jj in "$@";do
-    echo "Submitting job: \"$jj\""
+    printf "%s : Submitting job: $s\n" "`date`" "$jj"
     #Check number of active jobs
     break_loop=0
     while [ $break_loop -eq 0 ];do
@@ -77,7 +77,7 @@ for jj in "$@";do
        num=`countactivejobs $summaryfile`
        if [ $num -ge $joblimit ];then
           break_loop=0
-          echo "Limit on number of active jobs reached, check for completed jobs"
+          printf "%s : Limit on number of active jobs reached, check for completed jobs\n" "`date`"
 	  #No more slots available, loop on jobs, search 
           #the first that has finised
           jobs=`listjobs $summaryfile`
@@ -85,7 +85,7 @@ for jj in "$@";do
           for jj_run in $jobs;do
 	    running=`jobstatus $jj_run $summaryfile`
 	    if [ $running -gt 0 ];then
-		echo "Job \"$jj_run\" is completed, deleting it"
+	 	printf "%s : Job %s is completed, deleting it\n" "`date`" "${jj_run}"
 		deljob $jj_run $summaryfile 
  		break_loop=1
 		break;
