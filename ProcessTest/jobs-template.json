@@ -2,6 +2,7 @@
     "job_specifications": [
         {
             "id": "id",
+	    "auto_complete": true,
             "tasks": [
                 {
                     "id": "0",
