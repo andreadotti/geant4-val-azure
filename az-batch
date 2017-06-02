@@ -200,7 +200,7 @@ function usage {
     echo "       init:      initialize pool" 1>&2
     echo "       submit:    submit a job" 1>&2
     echo "       deljob:    delete a job (accepts -j)" 1>&2
-    echo "       deltasks:  delte tasks associated to a job (accepts -j)" 1>&2
+    echo "       deltasks:  delete tasks associated to a job (accepts -j)" 1>&2
     echo "       terminate: deallocate pool" 1>&2
     echo "       kill:      kill tasks (accepts -j, -t)" 1>&2
     echo "       getfile:   retrieve file(s) for specified job and task id. If no file is specified, retrieve all files." 1>&2
