@@ -41,6 +41,12 @@ For example to submit jobs according to a recipe (see later), you will:
  6. Deallocate pool once finished: 
     `az-batch terminate -r recipename summary.json`
 
+**Note**: You cannot add jobs to an existing pool unless all jobs use the 
+same docker image (the image is pulled when pool is created). This means 
+if you want to run two set of jobs that use different images you can create
+a separate pool for each set of jobs or wait for the first set to end and
+restart the pool.
+
 Configuration
 -------------
 As for batch-shipyard configuration is provided via a set of json
