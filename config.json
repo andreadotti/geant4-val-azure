@@ -2,6 +2,15 @@
   "batch_shipyard": {
     "storage_account_settings": "miscellaneus"
   },
+  "data_replication":{
+    "peer_to_peer":{
+       "enabled":true ,
+       "compression":true,
+       "concurrent_source_downloads": 10,
+       "direct_download_seed_bias": 20
+    },
+    "non_peer_to_peer_concurrent_downloading": true
+  },
   "global_resources": {
     "docker_images": [
       "VALUE_WILL_BE_GENERATED"
