@@ -1,7 +1,7 @@
 {
   "add_pool": false,
   "registry": null,
-  "docker_image":"andreadotti/geant4-val:latest",
+  "docker_image":"andreadotti/geant4-val:10.3.p01-0.13.3",
   "azure_output_container":null,
   "configurations": {
     "credentials": "credentials.json",
@@ -133,7 +133,6 @@
     "ShieldingM_HadInel_piMinus": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingM-HadInel-pi-.json ../.gen-jobs.json && cd ../",
     "ShieldingM_HadInel_piPlus": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingM-HadInel-pi+.json ../.gen-jobs.json && cd ../",
     "ShieldingM_HadInel_neutron": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingM-HadInel-neutron.json ../.gen-jobs.json && cd ../"
-  }
   }
 }
 
