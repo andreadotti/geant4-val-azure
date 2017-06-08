@@ -104,7 +104,36 @@
     "ShieldingLEND_Fission" : "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingLEND-lowE-Fission.json ../.gen-jobsjson && cd ../",
     "ShieldingLEND_HadEl_neutron": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingLEND-lowE-HadEl-neutron.json ../.gen-jobs.json && cd ../",
     "ShieldingLEND_HadInel_neutron": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingLEND-lowE-HadInel-neutron.json ../.gen-jobs.json && cd ../",
-    "ShieldingLEND_nCapture": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingLEND-lowE-nCapture.json ../.gen-jobs.json && cd ../"
+    "ShieldingLEND_nCapture": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingLEND-lowE-nCapture.json ../.gen-jobs.json && cd ../",
+    "Shielding_HadEl_anti_proton": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-Shielding-HadEl-anti_proton.json ../.gen-jobs.json && cd ../",
+    "Shielding_HadEl_proton": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-Shielding-HadEl-proton.json ../.gen-jobs.json && cd ../",
+    "Shielding_HadEl_kaonMinus": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-Shielding-HadEl-kaon-.json ../.gen-jobs.json && cd ../",
+    "Shielding_HadEl_kaonPlus": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-Shielding-HadEl-kaon+.json ../.gen-jobs.json && cd ../",
+    "Shielding_HadEl_piMinus": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-Shielding-HadEl-pi-.json ../.gen-jobs.json && cd ../",
+    "Shielding_HadEl_piPlus": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-Shielding-HadEl-pi+.json ../.gen-jobs.json && cd ../",
+    "Shielding_HadEl_neutron": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-Shielding-HadEl-neutron.json ../.gen-jobs.json && cd ../",
+    "Shielding_HadInel_anti_proton": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-Shielding-HadInel-anti_proton.json ../.gen-jobs.json && cd ../",
+    "Shielding_HadInel_proton": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-Shielding-HadInel-proton.json ../.gen-jobs.json && cd ../",
+    "Shielding_HadInel_kaonMinus": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-Shielding-HadInel-kaon-.json ../.gen-jobs.json && cd ../",
+    "Shielding_HadInel_kaonPlus": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-Shielding-HadInel-kaon+.json ../.gen-jobs.json && cd ../",
+    "Shielding_HadInel_piMinus": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-Shielding-HadInel-pi-.json ../.gen-jobs.json && cd ../",
+    "Shielding_HadInel_piPlus": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-Shielding-HadInel-pi+.json ../.gen-jobs.json && cd ../",
+    "Shielding_HadInel_neutron": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-Shielding-HadInel-neutron.json ../.gen-jobs.json && cd ../",
+    "ShieldingM_HadEl_anti_proton": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingM-HadEl-anti_proton.json ../.gen-jobs.json && cd ../",
+    "ShieldingM_HadEl_proton": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingM-HadEl-proton.json ../.gen-jobs.json && cd ../",
+    "ShieldingM_HadEl_kaonMinus": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingM-HadEl-kaon-.json ../.gen-jobs.json && cd ../",
+    "ShieldingM_HadEl_kaonPlus": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingM-HadEl-kaon+.json ../.gen-jobs.json && cd ../",
+    "ShieldingM_HadEl_piMinus": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingM-HadEl-pi-.json ../.gen-jobs.json && cd ../",
+    "ShieldingM_HadEl_piPlus": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingM-HadEl-pi+.json ../.gen-jobs.json && cd ../",
+    "ShieldingM_HadEl_neutron": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingM-HadEl-neutron.json ../.gen-jobs.json && cd ../",
+    "ShieldingM_HadInel_anti_proton": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingM-HadInel-anti_proton.json ../.gen-jobs.json && cd ../",
+    "ShieldingM_HadInel_proton": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingM-HadInel-proton.json ../.gen-jobs.json && cd ../",
+    "ShieldingM_HadInel_kaonMinus": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingM-HadInel-kaon-.json ../.gen-jobs.json && cd ../",
+    "ShieldingM_HadInel_kaonPlus": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingM-HadInel-kaon+.json ../.gen-jobs.json && cd ../",
+    "ShieldingM_HadInel_piMinus": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingM-HadInel-pi-.json ../.gen-jobs.json && cd ../",
+    "ShieldingM_HadInel_piPlus": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingM-HadInel-pi+.json ../.gen-jobs.json && cd ../",
+    "ShieldingM_HadInel_neutron": "cd ProcessTest && python gen-jobs.py tasks-singleinteractions-ShieldingM-HadInel-neutron.json ../.gen-jobs.json && cd ../"
+  }
   }
 }
 
