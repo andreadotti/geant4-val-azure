@@ -3,13 +3,17 @@
         "id": "g4validationpool",
         "vm_size": "STANDARD_F4",
         "vm_count": {
-		"dedicated": 5
+		"dedicated": 100
 	},
-	"resize_timeout": "00:30:00",
+	"resize_timeout": "01:00:00",
         "max_tasks_per_node": 1,
-        "publisher": "Canonical",
-        "offer": "UbuntuServer",
-        "sku": "16.04-LTS",
+	"vm_configuration": {
+		"platform_image": {
+		        "publisher": "Canonical",
+	        	"offer": "UbuntuServer",
+		        "sku": "16.04-LTS"
+		}
+	},
         "ssh": {
             "username": "docker",
 	    "expiry_days" : 21
