@@ -55,15 +55,15 @@ function addpool {
 }
 
 function listjobs {
-    shipyard jobs list --configdir ${conf_dir}
+    shipyard jobs list --configdir ${conf_dir} 2>&1
 }
 
 function listpool {
-    shipyard pool list --configdir ${conf_dir}
+    shipyard pool list --configdir ${conf_dir} 2>&1
 }
 
 function listnodes {
-    shipyard pool listnodes --configdir ${conf_dir}
+    shipyard pool listnodes --configdir ${conf_dir} 2>&1
 }
 
 function termjobs {
