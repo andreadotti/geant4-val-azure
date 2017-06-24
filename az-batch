@@ -55,15 +55,15 @@ function addpool {
 }
 
 function listjobs {
-    shipyard jobs list --configdir ${conf_dir}
+    shipyard jobs list --configdir ${conf_dir} 2>&1
 }
 
 function listpool {
-    shipyard pool list --configdir ${conf_dir}
+    shipyard pool list --configdir ${conf_dir} 2>&1
 }
 
 function listnodes {
-    shipyard pool listnodes --configdir ${conf_dir}
+    shipyard pool listnodes --configdir ${conf_dir} 2>&1
 }
 
 function termjobs {
@@ -91,11 +91,11 @@ function termjobs {
 
 function querystatus {
         ff=`mktemp`
-        cmd="shipyard jobs listtasks --configdir ${conf_dir} 2>&1"
+        cmd="shipyard jobs listtasks --configdir ${conf_dir} "
         [ ! -z ${job_id} ] && cmd=${cmd}" --jobid ${job_id}"
-	cmd=${cmd}" 2>&1"
+    	cmd=${cmd}" 2>&1"
         [ ! -z ${task_id} ] && cmd=${cmd}" | grep task_id=${task_id}"
-	[ $verbose -ge 1 ] && eval ${cmd} | tee ${ff} || eval ${cmd} > ${ff}
+	    [ $verbose -ge 1 ] && eval ${cmd} | tee ${ff} || eval ${cmd} > ${ff}
         #eval ${cmd}
         completed=`grep completed ${ff} | wc -l`
         running=`grep running ${ff} | wc -l`
@@ -284,7 +284,14 @@ case "${cmd}" in
 		listnodes
 		;;
 	   *)
-		querystatus
+        if [ "${job_id}" == "all" ];then 
+            jj=`listjobs | cut -d" " -f5 | sed 's/job_id=//g'`
+            for job_id in $jj;do
+                querystatus
+            done
+        else    
+		    querystatus
+        fi
 		;;
 	esac
         #[ "$subcmd" == "jobs" ] && listjobs || querystatus
