@@ -18,14 +18,18 @@ function genfiles {
     
     #Jobs file
     temp=`jq -r '.configurations.jobs' ${conf_file}`
+    #-j when submitting is an alias of -r
+    if [ -z ${recipe} ];then
+        [ ! -z "${job_id}" ] && recipe=$job_id
+    fi 
     #If no jobs file is specified, generate one
     [ ${temp} == "null" ]&& temp=`generate_jobs_file`
     #Change the docker image name to the one specified in ${conf_file} itself
     #Change the name of the azure container (note the same name expressing two things) on which store output of the application
     if [ "X"${temp} != "X" ];then 
-	[ "X"${recipe} != "X" ] && cname=`echo $recipe | sed 's/_/-/g' | tr -cd '[[:alnum:]-]' | tr '[:upper:]' '[:lower:]'` || cname="outputcontainer"
-	#Receipe passed, if output contanier is not specifed use the recipe name
-	jq --slurpfile summ ${conf_file} --arg containername ${cname} 'if $summ[0].azure_output_container != null then .job_specifications[].tasks[].output_data.azure_storage[0].container=$summ[0].azure_output_container else .job_specifications[].tasks[].output_data.azure_storage[0].container=$containername end | .job_specifications[].tasks[].image=$summ[0].docker_image' ${temp} > ${conf_dir}/jobs.json
+        [ "X"${recipe} != "X" ] && cname=`echo $recipe | sed 's/_/-/g' | tr -cd '[[:alnum:]-]' | tr '[:upper:]' '[:lower:]'` || cname="outputcontainer"
+	    #Receipe passed, if output contanier is not specifed use the recipe name
+	    jq --slurpfile summ ${conf_file} --arg containername ${cname} 'if $summ[0].azure_output_container != null then .job_specifications[].tasks[].output_data.azure_storage[0].container=$summ[0].azure_output_container else .job_specifications[].tasks[].output_data.azure_storage[0].container=$containername end | .job_specifications[].tasks[].image=$summ[0].docker_image' ${temp} > ${conf_dir}/jobs.json
     fi
 }
 
@@ -287,6 +291,7 @@ case "${cmd}" in
         if [ "${job_id}" == "all" ];then 
             jj=`listjobs | cut -d" " -f5 | sed 's/job_id=//g'`
             for job_id in $jj;do
+                echo -n "Job: $job_id : "
                 querystatus
             done
         else    
