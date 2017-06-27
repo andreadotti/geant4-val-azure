@@ -47,6 +47,26 @@ if you want to run two set of jobs that use different images you can create
 a separate pool for each set of jobs or wait for the first set to end and
 restart the pool.
 
+Additional scripts
+------------------
+The following scripts make some opration automatic:
+
+ * `submitmany.sh [job1 [job2 [...]]]`: submit the list of jobs monitoring
+   the status of the queue, if the job limit is hit, wait for a job to 
+   finish before submitting another one (job limit is set in the script)
+ * `autoresize.sh`: monitor number of running job and auto-resize (scaling
+   down) pool to reduce the number of jobs
+
+The two scripts can be used in a chain. For example to initialize pool,
+submit all jobs defined in summary, scale down pool when jobs finish and
+finally to de-allocate pool:
+```
+az login
+jobs=`jq -r '.recipes | keys | .[]' summary.json`
+az-batch init summary.json && submitmany.sh $jobs && \
+    autoresize.sh && az-batch terminate summary.json
+```
+
 Configuration
 -------------
 As for batch-shipyard configuration is provided via a set of json
