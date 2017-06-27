@@ -182,3 +182,36 @@ $ az-batch submit -r FTFP_BERT_Compton summary-docker.json
 If you need to manipulate database files, add another `-v` option mounting the 
 volume with the DBs in the image.  
 
+Advanced Azure CLI examples
+------------------------------
+Status of nodes:
+```
+az login
+export AZURE_BATCH_POOL_ID=`jq -r '.pool_specification.id' pool.json`
+export AZURE_BATCH_ACCOUNT=`jq -r '.credentials.batch.account' \
+                            credentials.json`
+export AZURE_BATCH_ACCESS_KEY=`jq -r '.credentials.batch.account_key' \
+                            credentials.json `
+export AZURE_BATCH_ENDPOINT=`jq -r '.credentials.batch.account_service_url' \
+                            credentials.json`
+az batch node list --pool-id $AZIRE_BATCH_POOL_ID \
+                   --query '[*].[id,state]' --out table
+```
+
+Print number of nodes in running state:
+```
+az batch node list --pool-id $AZURE_BATCH_POOL_ID --query '[].id' \
+                   --filter "state eq 'running'" --out tsv | wc -l
+```
+
+For example to perform a resize:
+```
+newnum=`az batch node list --pool-id $AZURE_BATCH_POOL_ID \
+        --query '[].id' --filter "state eq 'running'" --out tsv | wc -l`
+mv pool.json pool.original.json
+jq --argjson numjobs ${newnum} \
+    '.pool_specification.vm_count.dedicated=$numjobs' \
+        pool.original.json > pool.json
+az-batch resize summary.json
+```
+
