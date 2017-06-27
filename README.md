@@ -162,7 +162,7 @@ $ az-batch submit -r FTFP_BERT_Compton summary-docker.json
 If you need to manipulate database files, add another `-v` option mounting the 
 volume with the DBs in the image.  
 
-Query at command line examples
+Advanced Azure CLI examples
 ------------------------------
 Status of nodes:
 ```
