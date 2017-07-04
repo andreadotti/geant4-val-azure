@@ -8,6 +8,7 @@ RUN apt update -y && apt install -y libssl-dev libffi-dev \
 
 RUN pip3 install --upgrade pip && pip3 install --prefix /usr/local --upgrade blobxfer
 RUN pip3 install --prefix /usr/local azure-cli
+RUN ln -s /usr/bin/python3 /usr/bin/python
 
 # Batch shipuard requires sudo for installation
 # and cannot be installed as root
