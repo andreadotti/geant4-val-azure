@@ -4,11 +4,10 @@ MAINTAINER Andrea Dotti (adotti@slac.stanford.edu)
 
 RUN apt update -y && apt install -y libssl-dev libffi-dev \
 		     python3-dev build-essential git jq \
-		     python3-pip sudo vim virtualenv
+		     python3-pip sudo vim virtualenv python
 
 RUN pip3 install --upgrade pip && pip3 install --prefix /usr/local --upgrade blobxfer
 RUN pip3 install --prefix /usr/local azure-cli
-RUN ln -s /usr/bin/python3 /usr/bin/python
 
 # Batch shipuard requires sudo for installation
 # and cannot be installed as root
