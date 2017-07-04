@@ -21,7 +21,7 @@ RUN cd batch-shipyard && ./install.sh -3 -e shipyard.venv
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
-COPY az-batch config.json credentials-template.json jobs-example.json pool.json summary.json submitmany.sh *.md /geant4-val-azure/
+COPY az-batch config.json credentials-template.json jobs-example.json pool.json summary.json *.sh *.md /geant4-val-azure/
 COPY ProcessTest /geant4-val-azure/ProcessTest/
 
 ENV PATH="$PATH:/geant4-val-azure:/home/g4-azure/batch-shipyard"
