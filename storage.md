@@ -84,4 +84,25 @@ For example to download all cross sections files (called crosssections*.tgz):
 blobxfer $AZURE_STORAGE_ACCOUNT <blob-container> . --storageaccountkey $AZURE_STORAGE_KEY --remoteresource . --download --include 'crosssections*.tgz'
 ```
 
+To list all containers in an azure storage account: 
+```
+AZURE_STORAGE_ACCOUNT and AZRURE_STORAGE_KEY Are set
+az storage container list --query '[*].name' -o tsv
+```
+
+To list all blobs in an azure container
+```
+az storage blob list -c <containername> --query '[*].name' -o tsv
+```
+
+To dowload a blob in an azure container
+```
+az storage blob download -c <containername> -f ./<localname> -n
+<bloblname>
+``` 
+
+To download all blobs in a container:
+```
+az storage blob download-batch -d <destination-dir> -s <containername>
+```
 
