@@ -30,7 +30,7 @@ For example to submit jobs according to a recipe (see later), you will:
 
  1. Edit the json configuration files
  2. Initialize a batch pool on Azure: 
-    `az-batch init -r recipename summary.json`. You can skip this step if
+    `az-batch init summary.json`. You can skip this step if
     `add_pool` property is set to true in the summary json file.
  3. Submit jobs: `az-batch submit -r recipename summary.json`
  4. *Optional*: Monitor the status of jobs: 
@@ -214,4 +214,5 @@ jq --argjson numjobs ${newnum} \
         pool.original.json > pool.json
 az-batch resize summary.json
 ```
+
 
