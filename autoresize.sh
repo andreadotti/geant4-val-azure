@@ -27,7 +27,7 @@ while [ $newnum -gt 1 ];do
       if [ $newnum -lt $currentnodes ];then
             #Some nodes are idle, resize
             mv pool.json pool.original.json
-            jq --argjson numjobs ${newnum} '.pool_specification.vm_count.dedicated=$numjobs' > pool.json
+            jq --argjson numjobs ${newnum} '.pool_specification.vm_count.dedicated=$numjobs' pool.original.json > pool.json
             az-batch resize summary.json
             echo "Sleep for 60 minutes"
             sleep 60m
