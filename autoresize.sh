@@ -38,12 +38,12 @@ while [ $newnum -gt 1 ];do
       sleep 60m
 done
 echo "Max one running node left, waiting for jobs to finish"
-running=`az-batch status jobs summary.json | grep -v completed | wc -l`
+running=`az-batch status jobs summary.json | grep state | grep -v completed | wc -l`
 while [ $running -gt 0 ];do
       echo "Still $running jobs"
       #Still jobs running
       sleep 30m
-      running=`az-batch status jobs summary.json | grep -v completed | wc -l`
+      running=`az-batch status jobs summary.json | grep state | grep -v completed | wc -l`
 done
 echo "Ok, no more jobs. Terminate pool"
 az-batch terminate -y summary.json
