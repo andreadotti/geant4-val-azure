@@ -101,28 +101,37 @@ function querystatus {
         [ ! -z ${task_id} ] && cmd=${cmd}" | grep task_id=${task_id}"
 	    [ $verbose -ge 1 ] && eval ${cmd} | tee ${ff} || eval ${cmd} > ${ff}
         #eval ${cmd}
-        completed=`grep completed ${ff} | wc -l`
-        running=`grep running ${ff} | wc -l`
-        waiting=`grep active ${ff} | wc -l`
+        completed=`grep TaskState.completed ${ff} | wc -l`
+        running=`grep TaskState.running ${ff} | wc -l`
+        waiting=`grep TaskState.active ${ff} | wc -l`
         echo "Tasks (completed/running/waiting): ${completed} / ${running} / ${waiting}"
         case "${subcmd}" in
                 completed)
-                        job=`cat ${ff} | head -n1 | awk '{print $5}' | sed 's/job_id=//'`
-                        tasks=`cat ${ff} | grep completed | awk '{print $6}' | sed 's/task_id=//'`
-                        echo "============ COMPLETED ============"
-                        echo $job $tasks
+                        if [ ! -z ${job_id} ];then
+                            tasks=`grep -B2 state ${ff} | grep -B2 completed | grep task | awk '{print $4}'`
+                            echo "============ COMPLETED ============"
+                            echo $job_id $tasks
+                        else
+                            echo "ERROR: Specify job name!"
+                        fi
                         ;;
                 running)
-                        job=`cat ${ff} | head -n1 | awk '{print $5}' | sed 's/job_id=//'`
-                        tasks=`cat ${ff} | grep running | awk '{print $6}' | sed 's/task_id=//'`
-                        echo "============ RUNNING ============"
-                        echo $job $tasks
+                        if [ ! -z ${job_id} ];then
+                            tasks=`grep -B2 state ${ff} | grep -B2 running | grep task | awk '{print $4}'`
+                            echo "============ RUNNING ============"
+                            echo $job_id $tasks
+                        else
+                            echo "ERROR: Specify job name!"
+                        fi
                         ;;
                 waiting)
-                        job=`cat ${ff} | head -n1 | awk '{print $5}' | sed 's/job_id=//'`
-                        tasks=`cat ${ff} | grep active | awk '{print $6}' | sed 's/task_id=//'`
-                        echo "============ WAITING============"
-                        echo $job $tasks
+                        if [ ! -z ${job_id} ];then
+                            tasks=`grep -B2 state ${ff} | grep -B2 active | grep task | awk '{print $4}'`
+                            echo "============ WAITING============"
+                            echo $job_id $tasks
+                        else
+                            echo "ERROR: Specify job name!"
+                        fi
                         ;;
                 *)
                         ;; 

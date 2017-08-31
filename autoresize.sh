@@ -45,7 +45,10 @@ while [ $running -gt 0 ];do
       sleep 30m
       running=`az-batch status jobs summary.json | grep state | grep -v completed | wc -l`
 done
-echo "Ok, no more jobs. Terminate pool"
+echo "Ok, no more jobs. Delte jobs and terminate pool"
+for j in `az-batch status jobs summary.json |grep "job id" | awk '{print $4}'`;do 
+        az-batch deljob -j $j -y summary.json
+done
 az-batch terminate -y summary.json
 
 
