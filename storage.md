@@ -38,6 +38,12 @@ az storage file list --share-name g4db --path ./Test1
 NB: To understand format and possible windows encoding for end-of-line
 
 ### Add a DB:
+
+**The only reasonable way to upload a directory I've found is using the
+azure storage explorer application.**  
+This is here for reference hoping to find a reasonable CLI way.
+
+
 `az storage directory create -s g4db --name <DBname>`
 -n => --name
 Single file upload:
@@ -57,7 +63,7 @@ sudo mount -t cifs //g4databases.file.core.windows.net/g4db \
 
 **TODO**: Study/check project (bobxfer)[https://github.com/Azure/blobxfer]
 it seems what I need since it supports recursive copyes.
-IT works:
+IT does not work, see warning:
 ```
 source ~/Work/Azure/storage-g4databases.sh #For credentials
 blobxfer --storageaccountkey $AZURE_STORAGE_KEY --fileshare --upload g4databases g4db Test2
