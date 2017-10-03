@@ -2,7 +2,8 @@
     "job_specifications": [
         {
             "id": "example-mytest",
-	    "auto_complete": true,
+            "max_task_retries":2,
+    	    "auto_complete": true,
             "tasks": [
                 {
                     "id":"0",
@@ -25,7 +26,7 @@
                         ]
                     },
                     "remove_container_after_exit": true,
-                    "command": "/runme.sh FTFP_BERT run.mac"
+                    "command": "geant4-config --version"
                 }
             ]
         }

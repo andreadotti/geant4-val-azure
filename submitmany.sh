@@ -47,7 +47,7 @@ function jobstatus {
 }
 
 function usage {
-  echo "usage: $1 [-c summaryfile.json] <job1> [<job2> [<job3> ..]]"
+  echo "usage: $1 [-j summaryfile.json] <job1> [<job2> [<job3> ..]]"
   exit 1 
 }
 
@@ -74,7 +74,7 @@ for jj in "$@";do
     while [ 1 -eq 1 ];do
        num=`countactivejobs $summaryfile`
        if [ $num -lt $joblimit ];then 
-	  break
+	       break
        fi
        printf "%s - Maximum number of active jobs reaced, sleeping 30 mins\n" "`date`" 
        sleep 30m
