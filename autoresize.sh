@@ -34,12 +34,13 @@ while [ $newnum -gt 1 ];do
       fi
       newnum=`az batch node list --pool-id $AZURE_BATCH_POOL_ID --query '[].id' --filter "state eq 'running'" --out tsv | wc -l`
 done
-running=`az-batch status jobs summary.json | grep -v complted | wc -l`
-while [ $running -lt 0 ];do
+running=`az-batch status jobs summary.json | grep -v active | wc -l`
+while [ $running -gt 0 ];do
       #Still jobs running
       sleep 30m
-      running=`az-batch status jobs summary.json | grep -v complted | wc -l`
+      running=`az-batch status jobs summary.json | grep -v active | wc -l`
 done
 #Ok, no more jobs
+az-batch terminate -y summary.json
 
 
