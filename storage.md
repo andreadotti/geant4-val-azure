@@ -40,18 +40,36 @@ NB: To understand format and possible windows encoding for end-of-line
 ### Add a DB:
 
 **The only reasonable way to upload a directory I've found is using the
-azure storage explorer application.**  
-This is here for reference hoping to find a reasonable CLI way.
+azure storage explorer application.**
+Copy all DBs into a sinble empty directroy on host and cd into it. Then:
+```
+#To improve a bit efficiency:
+for i in `ls -d */`;do
+  if [ `az storage directory exists -n $i -s g4db -o tsv` == "True" ];then
+    #DB already seems to exist on remote
+    rm -rf $i
+  fi 
+  az storage file upload-batch -d g4db -s .
+```
+Destination (-d) must be a share name or URL. This cannot contain 
+sub-dirs.
+This seems to preserve directroy structure as it appears in '.'
 
+For example we can do semi-automatize, using docker itself (but requires
+root access):
+```
+docker volume create g4-data
+docker run --rm andreadotti/geant4:10.3.p02-data ls /usr/local/geant4/data
+sudo cp -r /var/lib/docker/volumes/my-vol/_data/* . 
+#Do the magic above
+docker volume rm g4-data
+```
 
+Some details of commands
 `az storage directory create -s g4db --name <DBname>`
 -n => --name
 Single file upload:
 `az storage file upload -s g4db --source <DBname>`
-
-Batch upload, big issue: cannot do recoursive tree!
-`az storage file upload-batch --destination <url>`
-destination url is for example: https://g4databases.file.core.windows.net/g4db/PhotonEvaporation4.3
 
 So at the end I am creating tarballs from my desktop, uploading it to 
 the storage, and from a Azure VM, unpack-it in a mount:
@@ -111,4 +129,18 @@ To download all blobs in a container:
 ```
 az storage blob download-batch -d <destination-dir> -s <containername>
 ```
+
+### Other CLI operations
+ 1. Create a storage account for G4 validation output data for G4 version
+    X.Y.Z:
+    ```
+    az login
+    export AZURE_STORAGE_ACCOUNT=geant4data10beta
+    az storage account create -n $AZURE_STORAGE_ACCOUNT \ 
+        -g geant4validationwest -l westus --sku Standard_GRS
+    #Retrieve storage key:
+    export AZURE_STORAGE_KEY=`az storage account key list \
+        -g geant4validationwest -n $AZURE_STORAGE_ACCOUNT | \
+            jq -r '.[0].value'`
+    ```
 
