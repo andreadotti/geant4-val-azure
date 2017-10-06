@@ -139,8 +139,50 @@ az storage blob download-batch -d <destination-dir> -s <containername>
     az storage account create -n $AZURE_STORAGE_ACCOUNT \ 
         -g geant4validationwest -l westus --sku Standard_GRS
     #Retrieve storage key:
-    export AZURE_STORAGE_KEY=`az storage account key list \
+    export AZURE_STORAGE_KEY=`az storage account keys list \
         -g geant4validationwest -n $AZURE_STORAGE_ACCOUNT | \
             jq -r '.[0].value'`
     ```
-
+ 2. Copy blobs between accounts or containers
+    Assuming the target account exists and that SOURCE and DESTINATION
+    keys and account-name exists. To copy a given blob in a container by
+    * Copy single blob from one contanier to another. 
+      names do:
+      ```
+      #Create destination container, not sure this is actually needed
+      az storage container create -n CONT_NAME --account-key DEST_KEY \
+             --account-name DEST_NAME
+      az storage blob copy start --destination-container CONT_NAME \
+            --destination-blob BLOB_NAME --account-key DEST_KEY \
+            --account-name DEST_NAME \ 
+            --source-account-key SOURCE_KEY \
+            --source-account-name SOURCE_NAME \ 
+            --source-container CONT_NAME --source-blob BLOB_NAME \
+            --timeout 60
+      ```
+    * Copy all blobs from one container to another
+      ```
+      #Create destination container, not sure this is actually needed
+      az storage container create -n CONT_NAME --account-key DEST_KEY \
+             --account-name DEST_NAME
+      az storage blob copy start-batch --destination-container CONT_NAME \
+             --account-name DEST_NAME --account-key DEST_KEY \
+             --source-account-name SOURCE_NAME --source-account-key SRC_KEY
+      ```
+    * Copy all blobs from all container from one account to another
+      ```
+      containers=`az storage container list --account-key $SOURCE_KEY \
+                --account-name $SOURCE_NAME | jq -r '.[].name'`
+      for cont in $containers;do
+            az storage container create -n $cont \
+                --account-key DEST_KEY \
+                --account-name DEST_NAME
+             az storage blob copy start-batch \
+               --destination-container $cont \
+               --account-name DEST_NAME --account-key DEST_KEY \
+               --source-account-name SOURCE_NAME \
+               --source-container $cont \
+               --source-account-key SRC_KEY >> handles.json
+      done
+      ```
+        
